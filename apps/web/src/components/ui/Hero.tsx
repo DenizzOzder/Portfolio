@@ -1,10 +1,10 @@
-import { Icon } from '../effects/Icon';
+
 import LightPillar from '../effects/LightPillar';
 import avatarImg from '../../assets/avatar.png';
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden">
+    <section className="relative w-full min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden snap-center">
         {/* Background Animation */}
         <div className="absolute inset-0 -z-20">
           <LightPillar
@@ -60,27 +60,6 @@ const Hero = () => {
                 </a>
                 <a href="#about" className="px-8 py-4 bg-black/40 backdrop-blur-md border border-gray-400 hover:border-white text-white rounded-2xl font-bold transition-all hover:bg-black/60 inline-block cursor-pointer">
                     Hakkımda
-                </a>
-            </div>
-            
-            <div className="flex gap-4 mt-2">
-                <a 
-                    href="https://www.linkedin.com/in/denizozder1/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="p-3 bg-white/5 border border-white/10 hover:border-purple-500 text-white rounded-xl transition-all hover:bg-purple-900/20 hover:scale-110"
-                    aria-label="LinkedIn"
-                >
-                    <Icon name="linkedin" className="w-6 h-6" fill="currentColor" />
-                </a>
-                <a 
-                    href="https://github.com/DenizzOzder" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="p-3 bg-white/5 border border-white/10 hover:border-purple-500 text-white rounded-xl transition-all hover:bg-purple-900/20 hover:scale-110"
-                    aria-label="GitHub"
-                >
-                    <Icon name="github" className="w-6 h-6" fill="currentColor" />
                 </a>
             </div>
         </div>

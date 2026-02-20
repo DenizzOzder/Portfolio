@@ -1,11 +1,46 @@
+import { useEffect, useRef } from 'react'
 import Hero from '@/components/ui/Hero'
+import { TechStack } from '@/components/ui/TechStack'
 
 function App() {
+  const techStackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // If the tech stack is approximately 75% visible in the viewport, snap to it.
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.75 && entry.intersectionRatio < 0.99) {
+             entry.target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      },
+      {
+        threshold: [0.75] // Monitor exactly for the 75% threshold
+      }
+    );
+
+    if (techStackRef.current) {
+      observer.observe(techStackRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <>
-      <Hero />
-      {/* Additional Home page sections can go here */}
-    </>
+    <div className="w-full min-h-screen overflow-x-hidden scroll-smooth bg-[#050010]">
+      {/* Hero section */}
+      <div className="relative w-full min-h-screen z-10">
+        <Hero />
+        {/* Soft edge transparent blend going into the next section */}
+        <div className="absolute bottom-0 w-full h-48 bg-gradient-to-t from-[#050010] to-transparent pointer-events-none z-20"></div>
+      </div>
+      
+      {/* TechStack section - negative margin to pull it UP slightly under the gradient mask */}
+      <div ref={techStackRef} className="relative w-full min-h-screen -mt-10 pt-10 z-0">
+        <TechStack />
+      </div>
+    </div>
   )
 }
 

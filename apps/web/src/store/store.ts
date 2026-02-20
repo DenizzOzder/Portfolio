@@ -2,7 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 
 export const store = configureStore({
   reducer: {
-    // slices will be added here
+    // Dummy reducer to prevent RTK combineReducers error until actual slices are added
+    app: (state = {}) => state,
   },
 });
 
