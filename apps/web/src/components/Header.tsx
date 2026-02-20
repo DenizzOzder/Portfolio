@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 w-full z-50 py-6 px-4 md:px-12 flex justify-between items-center bg-transparent">
         <Link to="/" className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-            Portfolio
+            Deniz Can Özder
         </Link>
         
         <nav className="hidden md:flex gap-8 text-gray-300 font-medium">
