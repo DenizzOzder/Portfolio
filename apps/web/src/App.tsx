@@ -1,4 +1,4 @@
-import Hero from '@/components/Hero'
+import Hero from '@/components/ui/Hero'
 
 function App() {
   return (
