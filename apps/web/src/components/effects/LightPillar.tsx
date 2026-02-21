@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
-import type { LightPillarProps, Bit } from '../../types/LightPillar';
+import type { LightPillarProps, Bit } from '../../types';
 
 const LightPillar = ({
   topColor = '#5227FF',

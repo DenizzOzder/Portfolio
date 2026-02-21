@@ -1,5 +1,5 @@
 import { iconSprite } from '../../assets/icons';
-import type { IconProps } from '../../types/Icon';
+import type { IconProps } from '../../types';
 
 export const Icon = ({ name, className = '', ...props }: IconProps) => {
   return (

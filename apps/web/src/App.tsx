@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import Hero from '@/components/ui/Hero'
 import { TechStack } from '@/components/ui/TechStack'
+import { FeaturedProjects } from '@/components/ui/FeaturedProjects'
 
 function App() {
   const techStackRef = useRef<HTMLDivElement>(null);
@@ -40,6 +41,9 @@ function App() {
       <div ref={techStackRef} className="relative w-full min-h-screen -mt-10 pt-10 z-0">
         <TechStack />
       </div>
+
+      {/* Featured Projects section */}
+      <FeaturedProjects />
     </div>
   )
 }
