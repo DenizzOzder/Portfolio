@@ -1,44 +1,27 @@
 
-const educationData = [
-  {
-    id: 1,
-    institution: 'Go IT Turkey',
-    degree: 'Fullstack Developer Eğitimi (Sertifikalı)',
-    date: 'Kasım 2024 - Aralık 2025',
-    grade: '',
-    status: '',
-    tech: ['HTML/CSS', 'JavaScript', 'ReactJS', 'NodeJS', 'TypeScript', 'MongoDB', 'Git', 'GitHub'],
-  },
-  {
-    id: 2,
-    institution: 'Yıldız Teknik Üniversitesi',
-    degree: 'Fizik Bölümü',
-    date: '2022 - 2026',
-    grade: '',
-    status: 'Öğrenime Ara Verdim',
-    tech: [],
-  },
-  {
-    id: 3,
-    institution: 'Ataşehir Adıgüzel Meslek Yüksekokulu',
-    degree: 'Bilgisayar Programcılığı',
-    date: '2018 - 2020',
-    grade: 'Ortalama: 3.43',
-    status: '%100 Burslu',
-    tech: ['C++', 'SQL', 'Java', 'HTML', 'CSS', 'JS'],
-  },
-  {
-    id: 4,
-    institution: 'İbrahim Müteferrika Mesleki ve Teknik Anadolu Lisesi',
-    degree: 'Bilişim Teknolojileri: Veritabanı Dalı',
-    date: '2014 - 2018',
-    grade: 'Ortalama: 80',
-    status: '',
-    tech: ['C#', 'SQL', 'PHP', 'HTML'],
-  }
-];
+import { useEffect, useState } from 'react';
+import { getEducationHistory } from '@/services/educationService';
+import type { EducationItem } from '@/types/education';
 
 export const Education = () => {
+  const [educationData, setEducationData] = useState<EducationItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAData = async () => {
+      try {
+        const data = await getEducationHistory();
+        setEducationData(data);
+      } catch (error) {
+        console.error("Eğitim bilgileri yüklenirken hata oluştu:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchAData();
+  }, []);
+
   return (
     <section id="education" className="relative w-full py-24 md:py-32 overflow-hidden bg-[#050010] flex flex-col items-center justify-center z-10 text-white">
       
@@ -62,92 +45,95 @@ export const Education = () => {
         {/* Roadmap Container */}
         <div className="relative w-full max-w-5xl mx-auto">
           
-          {/* 
-            The Winding Path Line 
-            For a roadmap feel, instead of a straight line, we use a dashed vertical line 
-            that glows, acting as the "trail".
-          */}
-          <div className="absolute left-8 md:left-1/2 top-4 bottom-4 w-1 bg-transparent border-l-4 border-dashed border-purple-500/30 transform md:-translate-x-1/2 z-0"></div>
+          {loading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500"></div>
+            </div>
+          ) : (
+            <>
+              {/* The Winding Path Line */}
+              <div className="absolute left-8 md:left-1/2 top-4 bottom-4 w-1 bg-transparent border-l-4 border-dashed border-purple-500/30 transform md:-translate-x-1/2 z-0"></div>
 
-          <div className="flex flex-col gap-16 relative z-10">
-            {educationData.map((edu, index) => {
-              const isEven = index % 2 === 0;
+              <div className="flex flex-col gap-16 relative z-10">
+                {educationData.map((edu, index) => {
+                  const isEven = index % 2 === 0;
 
-              return (
-                <div key={edu.id} className={`relative flex flex-col md:flex-row items-center ${isEven ? 'md:justify-start' : 'md:justify-end'} w-full pl-20 md:pl-0 group`}>
-                  
-                  {/* Map Node / Pin */}
-                  <div className={`absolute left-8 md:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-[#050010] border-4 border-pink-500 shadow-[0_0_20px_rgba(236,72,153,0.8)] z-20 flex items-center justify-center transition-transform duration-500 group-hover:scale-125 group-hover:bg-pink-500`}>
-                    <div className="w-2 h-2 bg-white rounded-full group-hover:opacity-0 transition-opacity"></div>
-                  </div>
-
-                  {/* Connecting Horizontal Line (Desktop only) */}
-                  <div className={`hidden md:block absolute top-1/2 transform -translate-y-1/2 h-[2px] bg-gradient-to-r ${isEven ? 'from-transparent to-pink-500/50 right-1/2 w-12' : 'from-pink-500/50 to-transparent left-1/2 w-12'} z-0`}></div>
-
-                  {/* Content Card */}
-                  <div className={`w-full md:w-[48%] ${isEven ? 'md:pr-8 lg:pr-12' : 'md:pl-8 lg:pl-12'}`}>
-                    
-                    <div className="relative p-6 md:p-8 rounded-[2rem] bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-2xl transition-all duration-500 hover:border-purple-500/50 hover:bg-white/[0.05] hover:-translate-y-2 overflow-hidden">
+                  return (
+                    <div key={edu.id} className={`relative flex flex-col md:flex-row items-center ${isEven ? 'md:justify-start' : 'md:justify-end'} w-full pl-20 md:pl-0 group`}>
                       
-                      {/* Hover Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                      {/* Map Node / Pin */}
+                      <div className={`absolute left-8 md:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-[#050010] border-4 border-pink-500 shadow-[0_0_20px_rgba(236,72,153,0.8)] z-20 flex items-center justify-center transition-transform duration-500 group-hover:scale-125 group-hover:bg-pink-500`}>
+                        <div className="w-2 h-2 bg-white rounded-full group-hover:opacity-0 transition-opacity"></div>
+                      </div>
 
-                      <div className="relative z-10">
-                        {/* Top Header Row (Date & Status Badges) */}
-                        <div className="flex flex-row items-center justify-between gap-2 md:gap-3 mb-5 w-full">
+                      {/* Connecting Horizontal Line (Desktop only) */}
+                      <div className={`hidden md:block absolute top-1/2 transform -translate-y-1/2 h-[2px] bg-gradient-to-r ${isEven ? 'from-transparent to-pink-500/50 right-1/2 w-12' : 'from-pink-500/50 to-transparent left-1/2 w-12'} z-0`}></div>
+
+                      {/* Content Card with floating Status Badge if exists */}
+                      <div className={`w-full md:w-[48%] relative ${isEven ? 'md:pr-8 lg:pr-12' : 'md:pl-8 lg:pl-12'}`}>
+                        
+                        {/* Floating Status Ribbon / Badge */}
+                        {edu.status && (
+                           <div className={`absolute -top-4 ${isEven ? 'right-6 md:right-12' : 'left-8 md:left-12'} z-30 inline-flex items-center justify-center h-8 px-4 text-xs font-black tracking-widest uppercase rounded-full shadow-[0_4px_10px_rgba(0,0,0,0.5)] border ${edu.status.includes('Ara Verdim') ? 'text-amber-200 bg-gradient-to-r from-amber-600 to-amber-900 border-amber-500' : 'text-emerald-200 bg-gradient-to-r from-emerald-600 to-emerald-900 border-emerald-500'}`}>
+                             {edu.status}
+                           </div>
+                        )}
+
+                        <div className="relative p-6 md:p-8 rounded-[2rem] bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-2xl transition-all duration-500 hover:border-purple-500/50 hover:bg-white/[0.05] hover:-translate-y-2 overflow-hidden mt-2">
                           
-                          {/* Left Side: Date */}
-                          <span className="inline-flex items-center justify-center h-8 px-3 md:px-4 text-xs md:text-sm font-bold tracking-wider text-purple-200 bg-purple-900/40 rounded-lg border border-purple-500/30 shadow-inner whitespace-nowrap shrink-0">
-                            {edu.date}
-                          </span>
-                          
-                          {/* Right Side: Badges */}
-                          <div className="flex flex-row gap-2 shrink-0">
-                            {edu.status && (
-                              <span className={`inline-flex items-center justify-center h-8 px-2 md:px-3 text-[10px] md:text-xs font-black tracking-widest uppercase rounded-lg border shadow-sm whitespace-nowrap ${edu.status.includes('Ara Verdim') ? 'text-amber-300 bg-amber-900/40 border-amber-500/50' : 'text-emerald-300 bg-emerald-900/40 border-emerald-500/50'}`}>
-                                {edu.status}
+                          {/* Hover Gradient Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+                          <div className="relative z-10">
+                            {/* Top Header Row (Date & Grade Badges ONLY) */}
+                            <div className="flex flex-row items-center justify-between gap-2 md:gap-3 mb-5 w-full">
+                              
+                              {/* Left Side: Date */}
+                              <span className="inline-flex items-center justify-center h-8 px-3 md:px-4 text-xs md:text-sm font-bold tracking-wider text-purple-200 bg-purple-900/40 rounded-lg border border-purple-500/30 shadow-inner whitespace-nowrap shrink-0">
+                                {edu.date}
                               </span>
-                            )}
-                            {edu.grade && (
-                              <span className="inline-flex items-center justify-center h-8 px-2 md:px-3 text-[10px] md:text-xs font-black tracking-widest uppercase text-pink-300 bg-pink-900/20 border border-pink-500/30 rounded-lg whitespace-nowrap">
-                                {edu.grade}
-                              </span>
+                              
+                              {/* Right Side: Grade */}
+                              <div className="flex flex-row gap-2 shrink-0">
+                                {edu.grade && (
+                                  <span className="inline-flex items-center justify-center h-8 px-2 md:px-3 text-[10px] md:text-xs font-black tracking-widest uppercase text-pink-300 bg-pink-900/20 border border-pink-500/30 rounded-lg whitespace-nowrap">
+                                    {edu.grade}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Title (Degree) & Subtitle (Institution) */}
+                            <h3 className="text-2xl md:text-3xl font-black text-white mb-2 leading-tight drop-shadow-md">
+                              {edu.degree}
+                            </h3>
+                            <h4 className="text-lg md:text-xl font-semibold text-purple-300/80 mb-6 tracking-wide drop-shadow-sm">
+                              {edu.institution}
+                            </h4>
+
+                            {/* Technologies / Skills */}
+                            {edu.tech.length > 0 && (
+                              <div className="flex flex-wrap gap-2">
+                                {edu.tech.map((t, idx) => (
+                                  <span 
+                                    key={idx} 
+                                    className="px-3 py-1 text-xs md:text-sm font-semibold text-gray-300 bg-black/50 rounded-lg border border-white/5 transition-colors group-hover:border-pink-500/30 group-hover:text-white"
+                                  >
+                                    {t}
+                                  </span>
+                                ))}
+                              </div>
                             )}
                           </div>
                         </div>
-
-                        {/* Title (Degree) & Subtitle (Institution) */}
-                        <h3 className="text-2xl md:text-3xl font-black text-white mb-2 leading-tight drop-shadow-md">
-                          {edu.degree}
-                        </h3>
-                        <h4 className="text-lg md:text-xl font-semibold text-purple-300/80 mb-6 tracking-wide drop-shadow-sm">
-                          {edu.institution}
-                        </h4>
-
-                        {/* Technologies / Skills */}
-                        {edu.tech.length > 0 && (
-                          <div className="flex flex-wrap gap-2">
-                            {edu.tech.map((t, idx) => (
-                              <span 
-                                key={idx} 
-                                className="px-3 py-1 text-xs md:text-sm font-semibold text-gray-300 bg-black/50 rounded-lg border border-white/5 transition-colors group-hover:border-pink-500/30 group-hover:text-white"
-                              >
-                                {t}
-                              </span>
-                            ))}
-                          </div>
-                        )}
                       </div>
-
                     </div>
-                  </div>
-
-                </div>
-              );
-            })}
-          </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
-
       </div>
     </section>
   );
