@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import Hero from '@/components/ui/Hero'
 import { TechStack } from '@/components/ui/TechStack'
+import { Careers } from '@/components/ui/Careers'
 import { FeaturedProjects } from '@/components/ui/FeaturedProjects'
 
 function App() {
@@ -40,10 +41,15 @@ function App() {
       {/* TechStack section - negative margin to pull it UP slightly under the gradient mask */}
       <div ref={techStackRef} className="relative w-full min-h-screen -mt-10 pt-10 z-0">
         <TechStack />
+        {/* Smooth transition from TechStack to Careers */}
+        <div className="absolute bottom-0 w-full h-64 bg-gradient-to-b from-transparent to-[#050010] pointer-events-none z-20"></div>
       </div>
-
       {/* Featured Projects section */}
       <FeaturedProjects />
+      {/* Careers Section */}
+      <div className="-mt-16 relative z-10 w-full">
+        <Careers />
+      </div>
     </div>
   )
 }
