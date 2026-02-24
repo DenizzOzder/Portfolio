@@ -1,12 +1,20 @@
 # Active Tasks & To-Dos
 
-## Current Objective: Education Backend Service & UI Update
+## Current Objective: Routing & Global Loader Refactor
 
-- [x] `src/services/educationService.ts` oluştur ve şimdilik mock datayı buradan döndüren async bir servis yaz (Gelecekteki GraphQL/Firebase yapısına hazırlık).
-- [x] `Education.tsx` bileşenini bu servisi tüketecek şekilde (useState, useEffect, loading state) güncelle.
-- [x] `100% Burslu` gibi status bilgilerini card'ın içine değil, hemen üstüne bir etiket (badge/ribbon) gibi iliştir.
-  - Yol (Roadmap) hissi vermesi için birbirine bağlı noktalar veya SVG path kullanılabilir.
-  - Sıralama: Lise (2014-2018) -> Önlisans (2018-2020) -> Lisans (2022-2026) -> Bootcamp (2024-2025) şeklinde kronolojik bir yolculuk.
-- [x] Verileri hiyerarşik yapılandır (Kurum, Bölüm, Tarih, Not Ortalaması/Durum, Teknolojiler).
-- [x] `App.tsx` dosyasında `<AboutMe />` altına `<Education />` ekle.
-- [x] Tasarımı mobil ve masaüstü için kontrol et.
+- [x] Write implementation plan and loader suggestions
+- [x] Refactor Routing & Home Page
+  - [x] Move `App.tsx` content to `pages/Home.tsx`
+  - [x] Create central router file (`routes/index.tsx`)
+- [x] Refactor Layout
+  - [x] Move Footer component inside `Layout.tsx`
+- [x] Optimization & Lazy Loading
+  - [x] Implement `React.lazy` for routing pages (Admin Panel, etc.)
+- [x] Global Loader (Redux)
+  - [x] Create `uiSlice` in Redux to handle `isLoading` state
+  - [x] Update components to use `dispatch(setLoading())` instead of local states
+- [x] Implement Initial Loader (Splash Screen or Skeleton) based on user choice
+- [x] Verify functionality
+
+## Next Objective: Pending User Decision
+- [ ] Bekleniyor...

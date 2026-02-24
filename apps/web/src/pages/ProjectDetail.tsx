@@ -1,5 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { startLoading, stopLoading } from '@/store/slices/uiSlice';
 import { getFeaturedProjects } from '@/services/projectService';
 import type { ProjectCardProps } from '@/types';
 
@@ -7,35 +9,47 @@ const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [project, setProject] = useState<ProjectCardProps | null>(null);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    let isMounted = true;
+    let isLoadingStarted = false;
+
     // In a real app, you might have a getProjectById service.
     // Here we reuse getFeaturedProjects and filter by id.
     const fetchProject = async () => {
+      dispatch(startLoading('Proje Detayları Yükleniyor...'));
+      isLoadingStarted = true;
       try {
         const projects = await getFeaturedProjects();
-        const found = projects.find(p => p.id === id);
-        if (found) {
-          setProject(found);
+        if (isMounted) {
+          const found = projects.find(p => p.id === id);
+          if (found) {
+            setProject(found);
+          }
         }
       } catch (error) {
-        console.error("Error fetching project:", error);
+        if (isMounted) {
+          console.error("Error fetching project:", error);
+        }
       } finally {
-        setLoading(false);
+        if (isMounted && isLoadingStarted) {
+          dispatch(stopLoading());
+          isLoadingStarted = false;
+        }
       }
     };
 
     fetchProject();
-  }, [id]);
 
-  if (loading) {
-    return (
-      <div className="w-full min-h-screen bg-[#050010] flex items-center justify-center text-white">
-        <div className="animate-spin w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full"></div>
-      </div>
-    );
-  }
+    return () => {
+      isMounted = false;
+      if (isLoadingStarted) {
+        dispatch(stopLoading());
+        isLoadingStarted = false;
+      }
+    };
+  }, [id, dispatch]);
 
   if (!project) {
     return (

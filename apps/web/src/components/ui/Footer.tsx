@@ -4,7 +4,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="w-full py-10 text-center bg-[#050010] relative z-20 mt-10">
+    <footer className="w-full py-10 text-center bg-[#050010] relative z-20">
       {/* Decorative top border */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] max-w-3xl h-[1px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent"></div>
       

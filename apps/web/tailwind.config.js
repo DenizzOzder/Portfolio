@@ -13,7 +13,10 @@ export default {
       },
       animation: {
         'gradient': 'gradient 8s linear infinite',
-        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'spin-fast': 'spin 1s linear infinite',
+        'spin-reverse-medium': 'spin-reverse 2s linear infinite',
+        'spin-slow': 'spin 3s linear infinite',
       },
       keyframes: {
         gradient: {
@@ -24,6 +27,11 @@ export default {
           '50%': {
             'background-size': '200% 200%',
             'background-position': 'right center'
+          },
+        },
+        'spin-reverse': {
+          to: {
+            transform: 'rotate(-360deg)',
           },
         },
       },

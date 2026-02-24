@@ -3,30 +3,51 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ProjectCard } from './ProjectCard';
 import { getFeaturedProjects } from '../../services/projectService';
 import type { ProjectCardProps } from '../../types';
+import { useDispatch } from 'react-redux';
+import { startLoading, stopLoading } from '../../store/slices/uiSlice';
 
 type FilterType = 'all' | 'completed' | 'in-progress';
 
 export const FeaturedProjects: React.FC = () => {
   const [projects, setProjects] = useState<ProjectCardProps[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState<FilterType>('all');
   const [showAll, setShowAll] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    let isMounted = true;
+    let isLoadingStarted = false;
+
     const fetchProjects = async () => {
-      setIsLoading(true);
+      dispatch(startLoading('Projeler Yükleniyor...'));
+      isLoadingStarted = true;
       try {
         const data = await getFeaturedProjects();
-        setProjects(data);
+        if (isMounted) {
+          setProjects(data);
+        }
       } catch (error) {
-        console.error('Error fetching projects:', error);
+        if (isMounted) {
+          console.error('Error fetching projects:', error);
+        }
       } finally {
-        setIsLoading(false);
+        if (isMounted && isLoadingStarted) {
+          dispatch(stopLoading());
+          isLoadingStarted = false;
+        }
       }
     };
 
     fetchProjects();
-  }, []);
+
+    return () => {
+      isMounted = false;
+      if (isLoadingStarted) {
+        dispatch(stopLoading());
+        isLoadingStarted = false;
+      }
+    };
+  }, [dispatch]);
 
   const filteredAndSortedProjects = useMemo(() => {
     // 1. Filter
@@ -50,19 +71,7 @@ export const FeaturedProjects: React.FC = () => {
 
   const displayedProjects = showAll ? filteredAndSortedProjects : filteredAndSortedProjects.slice(0, 4);
 
-  // Loading Skeleton Component
-  const ProjectSkeleton = () => (
-    <div className="w-full h-[400px] bg-white/5 border border-white/5 rounded-2xl animate-pulse flex flex-col overflow-hidden">
-      <div className="w-full h-[75%] bg-white/10"></div>
-      <div className="flex flex-col items-center justify-center h-[25%] p-4 bg-white/5">
-        <div className="w-3/4 h-5 bg-white/20 rounded mb-2"></div>
-        <div className="w-1/2 h-3 bg-white/10 rounded mb-3"></div>
-        <div className="flex gap-2">
-          {[1,2,3,4].map(i => <div key={i} className="w-5 h-5 bg-white/10 rounded-full"></div>)}
-        </div>
-      </div>
-    </div>
-  );
+
 
   return (
     <section 
@@ -116,22 +125,8 @@ export const FeaturedProjects: React.FC = () => {
         {/* CSS Grid for 4 columns on xl screens */}
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 min-h-[400px]">
           <AnimatePresence mode="popLayout">
-            {isLoading ? (
-              // Loading State: Render Skeletons
-              [1, 2, 3, 4].map((i) => (
-                <motion.div
-                  key={`skeleton-${i}`}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <ProjectSkeleton />
-                </motion.div>
-              ))
-            ) : (
-              // Loaded State: Render Projects
-              displayedProjects.map((project) => (
+            {/* Render Projects inline, loading overlay handles the wait */}
+            {displayedProjects.map((project) => (
                 <motion.div
                   key={project.title} // Ensure unique and stable key for animations
                   layout
@@ -150,8 +145,7 @@ export const FeaturedProjects: React.FC = () => {
                     role={project.role}
                   />
                 </motion.div>
-              ))
-            )}
+              ))}
           </AnimatePresence>
         </motion.div>
 

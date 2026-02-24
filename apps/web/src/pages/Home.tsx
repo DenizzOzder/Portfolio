@@ -1,4 +1,3 @@
-
 import Hero from '@/components/ui/Hero'
 import { AboutMe } from '@/components/ui/AboutMe'
 import { Education } from '@/components/ui/Education'
@@ -6,11 +5,8 @@ import { TechStack } from '@/components/ui/TechStack'
 import { Careers } from '@/components/ui/Careers'
 import { FeaturedProjects } from '@/components/ui/FeaturedProjects'
 import { ContactForm } from '@/components/ui/ContactForm'
-import { Footer } from '@/components/ui/Footer'
 
-function App() {
-  // The IntersectionObserver for snapping to TechStack was removed to prevent scroll hijacking during navigation.
-
+const Home = () => {
   return (
     <div className="w-full min-h-screen overflow-x-hidden scroll-smooth bg-[#050010]">
       {/* Hero section */}
@@ -46,10 +42,8 @@ function App() {
       {/* Contact Form */}
       <ContactForm />
 
-      {/* Footer */}
-      <Footer />
     </div>
   )
 }
 
-export default App
+export default Home

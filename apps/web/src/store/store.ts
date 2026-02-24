@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
+import uiReducer from './slices/uiSlice';
 
 export const store = configureStore({
   reducer: {
-    // Dummy reducer to prevent RTK combineReducers error until actual slices are added
-    app: (state = {}) => state,
+    ui: uiReducer,
   },
 });
 
