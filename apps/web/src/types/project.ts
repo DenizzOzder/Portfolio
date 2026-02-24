@@ -8,6 +8,7 @@ export interface ProjectCardProps {
   description: string;
   imageUrl: string;
   techStack: TechStackItem[];
+  id?: string; // Optional unique identifier for routing
   projectUrl?: string; // Optional link to the live project or github repo
   status?: 'completed' | 'in-progress'; // Status indicator
   role?: string; // User's role in the project

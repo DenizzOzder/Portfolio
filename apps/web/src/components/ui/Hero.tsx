@@ -1,8 +1,16 @@
-
+import React from 'react';
 import LightPillar from '../effects/LightPillar';
 import avatarImg from '../../assets/avatar.png';
 
 const Hero = () => {
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative w-full min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden snap-center">
         {/* Background Animation */}
@@ -54,11 +62,19 @@ const Hero = () => {
         </p>
 
         <div className="flex flex-col items-center gap-6">
-            <div className="flex gap-6">
-                <a href="#projects" className="px-8 py-4 bg-white hover:bg-gray-100 text-purple-900 rounded-2xl font-bold shadow-xl shadow-white/10 transition-all hover:scale-105 inline-block cursor-pointer">
+            <div className="flex gap-4 md:gap-6 flex-col md:flex-row w-full md:w-auto px-4">
+                <a 
+                  href="#projects" 
+                  onClick={(e) => handleScrollTo(e, 'projects')}
+                  className="px-8 py-4 w-full md:w-auto bg-white hover:bg-gray-100 text-purple-900 rounded-2xl font-bold shadow-xl shadow-white/10 transition-all hover:scale-105 inline-flex items-center justify-center cursor-pointer"
+                >
                     Projelerim
                 </a>
-                <a href="#about" className="px-8 py-4 bg-black/40 backdrop-blur-md border border-gray-400 hover:border-white text-white rounded-2xl font-bold transition-all hover:bg-black/60 inline-block cursor-pointer">
+                <a 
+                  href="#about" 
+                  onClick={(e) => handleScrollTo(e, 'about')}
+                  className="px-8 py-4 w-full md:w-auto bg-black/40 backdrop-blur-md border border-gray-400 hover:border-white text-white rounded-2xl font-bold transition-all hover:bg-black/60 inline-flex items-center justify-center cursor-pointer"
+                >
                     Hakkımda
                 </a>
             </div>

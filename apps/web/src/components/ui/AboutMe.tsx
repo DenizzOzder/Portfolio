@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 export const AboutMe = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="about" className="relative w-full py-24 md:py-32 flex flex-col items-center justify-center z-10 bg-[#050010] overflow-hidden">
       <div className="container mx-auto px-6 lg:px-12 max-w-5xl relative z-10 flex flex-col items-center text-center">
@@ -30,6 +34,18 @@ export const AboutMe = () => {
           </span>{' '}
           kullanarak ölçeklenebilir ve sürdürülebilir web uygulamaları geliştiriyorum. Temiz kod, mimari disiplin ve production kalitesinde çözümler üretmeye odaklanıyorum.
         </p>
+
+        <div className="mt-12 flex justify-center">
+            <button
+                onClick={() => navigate('/about')}
+                className="px-8 py-3 bg-white/5 border border-purple-500/30 text-purple-200 font-bold rounded-2xl shadow-lg backdrop-blur-md hover:bg-white/10 hover:border-pink-500/50 hover:shadow-[0_0_20px_rgba(236,72,153,0.3)] hover:-translate-y-1 transition-all duration-300 inline-flex items-center gap-2"
+            >
+                Daha Fazla Bilgi Al
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+            </button>
+        </div>
 
       </div>
     </section>

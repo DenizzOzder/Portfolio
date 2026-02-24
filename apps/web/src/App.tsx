@@ -5,6 +5,7 @@ import { Education } from '@/components/ui/Education'
 import { TechStack } from '@/components/ui/TechStack'
 import { Careers } from '@/components/ui/Careers'
 import { FeaturedProjects } from '@/components/ui/FeaturedProjects'
+import { ContactForm } from '@/components/ui/ContactForm'
 import { Footer } from '@/components/ui/Footer'
 
 function App() {
@@ -63,6 +64,9 @@ function App() {
       <div className="-mt-16 relative z-10 w-full mb-10 md:mb-20">
         <Education />
       </div>
+
+      {/* Contact Form */}
+      <ContactForm />
 
       {/* Footer */}
       <Footer />

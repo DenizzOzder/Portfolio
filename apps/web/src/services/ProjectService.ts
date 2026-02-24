@@ -3,6 +3,7 @@ import type { ProjectCardProps } from '../types';
 // Moved from featuredProjects.tsx
 const MOCK_PROJECTS_DATA: ProjectCardProps[] = [
   {
+    id: 'e-commerce-platform',
     title: 'E-Commerce Platform',
     description: 'A full-stack e-commerce solution with modern UI, secure payment integration, and a comprehensive admin dashboard for inventory management.',
     imageUrl: 'https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1000&auto=format&fit=crop',
@@ -18,6 +19,7 @@ const MOCK_PROJECTS_DATA: ProjectCardProps[] = [
     date: '2023-08'
   },
   {
+    id: 'ai-dashboard',
     title: 'AI Dashboard Analyzer',
     description: 'An AI-powered dashboard that analyzes user data and provides actionable insights utilizing machine learning models backend by Python.',
     imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
@@ -33,6 +35,7 @@ const MOCK_PROJECTS_DATA: ProjectCardProps[] = [
     date: '2024-01'
   },
   {
+    id: 'real-estate-app',
     title: 'Real Estate App',
     description: 'Mobile-first real estate application for listing, searching, and booking property viewings with integrated map support.',
     imageUrl: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000&auto=format&fit=crop',
@@ -47,6 +50,7 @@ const MOCK_PROJECTS_DATA: ProjectCardProps[] = [
     date: '2023-11'
   },
   {
+    id: 'fintech-management',
     title: 'Fintech Management',
     description: 'Secure financial management application allowing users to track expenses, set budgets, and monitor their financial health in real-time.',
     imageUrl: 'https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?q=80&w=1000&auto=format&fit=crop',
@@ -62,6 +66,7 @@ const MOCK_PROJECTS_DATA: ProjectCardProps[] = [
     date: '2024-02'
   },
   {
+     id: 'social-network-api',
      title: 'Social Network API',
      description: 'A highly scalable backend service for a social networking platform featuring real-time messaging, notifications, and feed generation.',
      imageUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop',
@@ -77,6 +82,7 @@ const MOCK_PROJECTS_DATA: ProjectCardProps[] = [
      date: '2023-05'
    },
    {
+     id: 'legacy-cms-migration',
      title: 'Legacy CMS Migration',
      description: 'Migrating an outdated CMS to a modern headless architecture using Strapi and Next.js.',
      imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',

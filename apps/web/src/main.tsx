@@ -7,6 +7,7 @@ import App from '@/App'
 import About from '@/pages/About'
 import Projects from '@/pages/Projects'
 import Contact from '@/pages/Contact'
+import ProjectDetail from '@/pages/ProjectDetail'
 import { Layout } from '@/layouts/Layout'
 import '@/index.css'
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/project/:id",
+        element: <ProjectDetail />,
       },
     ]
   },

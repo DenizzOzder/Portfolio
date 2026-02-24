@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { ProjectCardProps } from '../../types';
 
 
@@ -11,15 +12,26 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   status,
   role,
   actionLabel,
+  id,
 }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    if (id) {
+      navigate(`/project/${id}`);
+    }
+  };
+
   return (
     <div
-      className="
+      onClick={handleCardClick}
+      className={`
         group relative flex flex-col 
         w-full h-[400px]
         transition-all duration-500 ease-out
         hover:-translate-y-2 
-      "
+        ${id ? 'cursor-pointer' : ''}
+      `}
     >
       {/* Main Card Content Wrapper - Moved styling here so badge can be outside without clipping */}
       <div className="absolute inset-0 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden group-hover:bg-white/10 group-hover:border-purple-500/50 group-hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] transition-all duration-500 pointer-events-none"></div>
@@ -81,16 +93,25 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
         
         {/* Optional Action Button Container (Can be extended later) */}
-        {projectUrl && (
+        {(id || projectUrl) && (
             <div className="absolute bottom-4 opacity-0 group-hover:opacity-100 transition-all duration-300 z-30">
-               <a 
-                 href={projectUrl} 
-                 target="_blank" 
-                 rel="noopener noreferrer"
-                 className="inline-flex items-center text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors bg-black/60 px-3 py-1 rounded-full backdrop-blur-sm border border-purple-500/30"
-               >
-                 {actionLabel || 'Projeyi İncele \u2192'}
-               </a>
+               {id ? (
+                 <button 
+                   onClick={(e) => { e.stopPropagation(); navigate(`/project/${id}`); }}
+                   className="inline-flex items-center text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors bg-black/60 px-3 py-1 rounded-full backdrop-blur-sm border border-purple-500/30"
+                 >
+                   {actionLabel || 'Daha Fazla Bilgi \u2192'}
+                 </button>
+               ) : (
+                 <a 
+                   href={projectUrl} 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   className="inline-flex items-center text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors bg-black/60 px-3 py-1 rounded-full backdrop-blur-sm border border-purple-500/30"
+                 >
+                   {actionLabel || 'Projeyi İncele \u2192'}
+                 </a>
+               )}
             </div>
         )}
       </div>
