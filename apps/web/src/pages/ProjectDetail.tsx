@@ -1,68 +1,30 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
-import { startLoading, stopLoading } from '@/store/slices/uiSlice';
-import { getFeaturedProjects } from '@/services/projectService';
-import type { ProjectCardProps } from '@/types';
+import { useProjects } from '@/hooks/useProjects';
+import { useGlobalLoaderSync } from '@/hooks/useGlobalLoaderSync';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const [project, setProject] = useState<ProjectCardProps | null>(null);
-  const [completedProjects, setCompletedProjects] = useState<ProjectCardProps[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const { data: projects = [], isLoading } = useProjects();
+  useGlobalLoaderSync(isLoading, 'Proje Detayları Yükleniyor...');
+
+  // Compute derived state using cached data
+  const { project, completedProjects } = useMemo(() => {
+    const completedList = projects.filter(p => p.status === 'completed');
+    const found = completedList.find(p => p.id === id) || null;
+    return { project: found, completedProjects: completedList };
+  }, [projects, id]);
 
   // Scroll to top when ID changes
   useEffect(() => {
     window.scrollTo(0, 0);
     setCurrentImageIndex(0);
   }, [id]);
-
-  useEffect(() => {
-    let isMounted = true;
-    let isLoadingStarted = false;
-
-    const fetchProject = async () => {
-      dispatch(startLoading('Proje Detayları Yükleniyor...'));
-      isLoadingStarted = true;
-      try {
-        const projects = await getFeaturedProjects();
-        if (isMounted) {
-          const completedList = projects.filter(p => p.status === 'completed');
-          setCompletedProjects(completedList);
-
-          const found = completedList.find(p => p.id === id);
-          if (found) {
-            setProject(found);
-          } else {
-            setProject(null); // Explicitly null if not found
-          }
-        }
-      } catch (error) {
-        if (isMounted) {
-          console.error("Error fetching project:", error);
-        }
-      } finally {
-        if (isMounted && isLoadingStarted) {
-          dispatch(stopLoading());
-          isLoadingStarted = false;
-        }
-      }
-    };
-
-    fetchProject();
-
-    return () => {
-      isMounted = false;
-      if (isLoadingStarted) {
-        dispatch(stopLoading());
-        isLoadingStarted = false;
-      }
-    };
-  }, [id, dispatch]);
 
   // Compute Prev and Next Projects
   const { prevProject, nextProject } = useMemo(() => {

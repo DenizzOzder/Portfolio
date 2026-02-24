@@ -1,49 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { startLoading, stopLoading } from '@/store/slices/uiSlice';
-import { getEducationHistory } from '@/services/educationService';
-import type { EducationItem } from '@/types/education';
+import { useEducationData } from '@/hooks/useEducation';
+import { useGlobalLoaderSync } from '@/hooks/useGlobalLoaderSync';
 import { Certificates } from './Certificates';
 import Hyperspeed, { hyperspeedPresets } from '../effects/Hyperspeed';
 
 export const Education = () => {
-  const [educationData, setEducationData] = useState<EducationItem[]>([]);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    let isMounted = true;
-    let isLoadingStarted = false;
-
-    const fetchAData = async () => {
-      dispatch(startLoading('Eğitim Bilgileri Yükleniyor...'));
-      isLoadingStarted = true;
-      try {
-        const data = await getEducationHistory();
-        if (isMounted) {
-          setEducationData(data);
-        }
-      } catch (error) {
-        if (isMounted) {
-          console.error("Eğitim bilgileri yüklenirken hata oluştu:", error);
-        }
-      } finally {
-        if (isMounted && isLoadingStarted) {
-          dispatch(stopLoading());
-          isLoadingStarted = false;
-        }
-      }
-    };
-    
-    fetchAData();
-
-    return () => {
-      isMounted = false;
-      if (isLoadingStarted) {
-        dispatch(stopLoading());
-        isLoadingStarted = false;
-      }
-    };
-  }, [dispatch]);
+  const { data: educationData = [], isLoading } = useEducationData();
+  useGlobalLoaderSync(isLoading, 'Eğitim Bilgileri Yükleniyor...');
 
   return (
     <section id="education" className="relative w-full py-24 md:py-32 overflow-hidden bg-[#050010] flex flex-col items-center justify-center z-10 text-white">

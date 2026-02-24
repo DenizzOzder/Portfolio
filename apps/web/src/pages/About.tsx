@@ -1,50 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { startLoading, stopLoading } from '@/store/slices/uiSlice';
-import { getAboutData } from '@/services/aboutService';
-import type { AboutRowItem } from '@/types';
+import { useAboutData } from '@/hooks/useAbout';
+import { useGlobalLoaderSync } from '@/hooks/useGlobalLoaderSync';
 
 const About = () => {
-  const dispatch = useDispatch();
-  const [rows, setRows] = useState<AboutRowItem[]>([]);
+  const { data: rows = [], isLoading } = useAboutData();
+  useGlobalLoaderSync(isLoading, 'Hikayem Yükleniyor...');
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  useEffect(() => {
-    let isMounted = true;
-    let isLoadingStarted = false;
-
-    const fetchRows = async () => {
-      dispatch(startLoading('Hikayem Yükleniyor...'));
-      isLoadingStarted = true;
-      try {
-        const data = await getAboutData();
-        if (isMounted) {
-          setRows(data);
-        }
-      } catch (error) {
-        if (isMounted) console.error("Error fetching about rows:", error);
-      } finally {
-        if (isMounted && isLoadingStarted) {
-          dispatch(stopLoading());
-          isLoadingStarted = false;
-        }
-      }
-    };
-
-    fetchRows();
-
-    return () => {
-      isMounted = false;
-      if (isLoadingStarted) {
-        dispatch(stopLoading());
-        isLoadingStarted = false;
-      }
-    };
-  }, [dispatch]);
 
   // Framer Motion constraints for text decoding or sliding
   const fadeUpVariant = {

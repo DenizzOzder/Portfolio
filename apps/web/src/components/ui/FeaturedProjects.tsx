@@ -1,53 +1,16 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProjectCard } from './ProjectCard';
-import { getFeaturedProjects } from '../../services/projectService';
-import type { ProjectCardProps } from '../../types';
-import { useDispatch } from 'react-redux';
-import { startLoading, stopLoading } from '../../store/slices/uiSlice';
+import { useProjects } from '../../hooks/useProjects';
+import { useGlobalLoaderSync } from '../../hooks/useGlobalLoaderSync';
 
 type FilterType = 'all' | 'completed' | 'in-progress';
 
 export const FeaturedProjects: React.FC = () => {
-  const [projects, setProjects] = useState<ProjectCardProps[]>([]);
   const [filter, setFilter] = useState<FilterType>('all');
   const [showAll, setShowAll] = useState(false);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    let isMounted = true;
-    let isLoadingStarted = false;
-
-    const fetchProjects = async () => {
-      dispatch(startLoading('Projeler Yükleniyor...'));
-      isLoadingStarted = true;
-      try {
-        const data = await getFeaturedProjects();
-        if (isMounted) {
-          setProjects(data);
-        }
-      } catch (error) {
-        if (isMounted) {
-          console.error('Error fetching projects:', error);
-        }
-      } finally {
-        if (isMounted && isLoadingStarted) {
-          dispatch(stopLoading());
-          isLoadingStarted = false;
-        }
-      }
-    };
-
-    fetchProjects();
-
-    return () => {
-      isMounted = false;
-      if (isLoadingStarted) {
-        dispatch(stopLoading());
-        isLoadingStarted = false;
-      }
-    };
-  }, [dispatch]);
+  const { data: projects = [], isLoading } = useProjects();
+  useGlobalLoaderSync(isLoading, 'Projeler Yükleniyor...');
 
   const filteredAndSortedProjects = useMemo(() => {
     // 1. Filter
