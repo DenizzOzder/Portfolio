@@ -1,7 +1,8 @@
-
 import { useEffect, useState } from 'react';
 import { getEducationHistory } from '@/services/educationService';
 import type { EducationItem } from '@/types/education';
+import { Certificates } from './Certificates';
+import Hyperspeed, { hyperspeedPresets } from '../effects/Hyperspeed';
 
 export const Education = () => {
   const [educationData, setEducationData] = useState<EducationItem[]>([]);
@@ -25,6 +26,11 @@ export const Education = () => {
   return (
     <section id="education" className="relative w-full py-24 md:py-32 overflow-hidden bg-[#050010] flex flex-col items-center justify-center z-10 text-white">
       
+      {/* Dynamic Hyperspeed Background - Centered to span Education and Certificates seamlessly */}
+      <div className="absolute inset-0 z-0 opacity-20 md:opacity-15 flex items-center justify-center pointer-events-none mix-blend-screen overflow-hidden">
+        <Hyperspeed effectOptions={hyperspeedPresets.portfolio} />
+      </div>
+
       {/* Background ambient light */}
       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[80%] h-full bg-gradient-to-b from-purple-900/5 via-pink-900/5 to-transparent blur-[120px] pointer-events-none -z-10"></div>
 
@@ -135,6 +141,9 @@ export const Education = () => {
           )}
         </div>
       </div>
+
+      {/* Sertifikalar Bölümü */}
+      <Certificates />
     </section>
   );
 };

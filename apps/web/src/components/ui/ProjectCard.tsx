@@ -10,6 +10,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   projectUrl,
   status,
   role,
+  actionLabel,
 }) => {
   return (
     <div
@@ -66,13 +67,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               <img
                 src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${tech.iconName}`}
                 alt={tech.name}
-                className="w-5 h-5 opacity-60 group-hover/tech:opacity-100 transition-opacity filter grayscale group-hover/tech:grayscale-0"
+                className="w-6 h-6 opacity-60 group-hover/tech:opacity-100 transition-opacity filter grayscale group-hover/tech:grayscale-0"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.parentElement?.querySelector('.fallback-text')?.classList.remove('hidden');
                 }}
               />
-              <span className="fallback-text hidden text-[10px] font-bold text-gray-400 group-hover/tech:text-white transition-colors">
+              <span className="fallback-text hidden text-xs font-bold text-gray-400 group-hover/tech:text-white transition-colors">
                 {tech.name.substring(0, 2)}
               </span>
             </div>
@@ -88,7 +89,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                  rel="noopener noreferrer"
                  className="inline-flex items-center text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors bg-black/60 px-3 py-1 rounded-full backdrop-blur-sm border border-purple-500/30"
                >
-                 Projeyi İncele &rarr;
+                 {actionLabel || 'Projeyi İncele \u2192'}
                </a>
             </div>
         )}
