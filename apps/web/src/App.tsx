@@ -5,6 +5,7 @@ import { Education } from '@/components/ui/Education'
 import { TechStack } from '@/components/ui/TechStack'
 import { Careers } from '@/components/ui/Careers'
 import { FeaturedProjects } from '@/components/ui/FeaturedProjects'
+import { Footer } from '@/components/ui/Footer'
 
 function App() {
   const techStackRef = useRef<HTMLDivElement>(null);
@@ -59,9 +60,12 @@ function App() {
       </div>
 
       {/* Education Section */}
-      <div className="-mt-16 relative z-10 w-full">
+      <div className="-mt-16 relative z-10 w-full mb-10 md:mb-20">
         <Education />
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }
