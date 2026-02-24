@@ -1,16 +1,15 @@
 # Active Tasks & To-Dos
 
-## Current Objective: Routing & Global Loader Refactor
-- [x] Tüm sistem Redux Global loader'a geçirildi, Route eklendi. (Tamamlandı)
+## Current Objective: About Page Layout & Backend-Ready Architecture
+- [x] `types/about.ts` dosyasını oluştur: `AboutRow` tipini tanımla (`id`, `title`, `content`, `imageUrl`, `imagePosition: 'left' | 'right'`).
+- [x] `services/aboutService.ts` dosyasını oluştur: Gelecekte Admin Panelinden gelecek olan "Hakkımda Satırları" için mock dataları barındır.
+- [x] `/about` (`pages/About.tsx`) sayfasını Figma/Modern standartlarda tasarla.
+  - [x] Sayfanın en üstünde şık bir Hero/Başlık bölümü oluştur.
+  - [x] Her `AboutRow` verisini döngüye alarak değişen düzenle (Zig-Zag / Alternating) ekrana bas.
+  - [x] Görseller için yavaşça beliren (fade-in) veya kayan (slide-in) Framer Motion animasyonları ekle.
+- [x] Kodu, ileride DB bağlandığında anında çalışacak modüler standartta tut.
 
-## Next Objective: Project Details Page (Mock & Architecture)
-- [x] `types/project.ts` dosyasına `content` ve `images` (array) ekle.
-- [x] `services/projectService.ts` içindeki tamamlanan projelere sahte slider görselleri ve sahte uzun açıklama metinleri ekle.
-- [x] `FeaturedProjects.tsx` kartlarındaki linkleri güncelle (Sadece `status === 'completed'` olanlara tıklanabilsin).
-- [x] `ProjectDetail.tsx` sayfasını Figma/Modern tasarımlara uygun olarak kodla.
-  - [x] Başlık, Role (Altbaşlık) ve TechStack gösterimini ekle.
-  - [x] Görseller için Carousel / Slider bileşeni yap.
-  - [x] Proje İçeriği (Content) alanını ekle.
-  - [x] Sayfa altına "Önceki Tamamlanan Proje" ve "Sonraki Tamamlanan Proje" geçiş (navigasyon) butonlarını ekle.
-- [ ] (Not): Tüm yapı ileride Admin panel / Backend ile değişebilecek soyutlamada olmalı.
-
+## Completed Tasks
+- [x] Tüm sistem Redux Global loader'a geçirildi, Route eklendi.
+- [x] Proje Detay Sayfası (`ProjectDetail.tsx`) Figma kurallarına uygun şekilde, slayder ve içerik parser özellikleri ile tamamlandı.
+- [x] Proje tıklama (Link) mekanizması ve ID iletim statüye bağlanarak çözüldü.
