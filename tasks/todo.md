@@ -1,20 +1,16 @@
 # Active Tasks & To-Dos
 
 ## Current Objective: Routing & Global Loader Refactor
+- [x] Tüm sistem Redux Global loader'a geçirildi, Route eklendi. (Tamamlandı)
 
-- [x] Write implementation plan and loader suggestions
-- [x] Refactor Routing & Home Page
-  - [x] Move `App.tsx` content to `pages/Home.tsx`
-  - [x] Create central router file (`routes/index.tsx`)
-- [x] Refactor Layout
-  - [x] Move Footer component inside `Layout.tsx`
-- [x] Optimization & Lazy Loading
-  - [x] Implement `React.lazy` for routing pages (Admin Panel, etc.)
-- [x] Global Loader (Redux)
-  - [x] Create `uiSlice` in Redux to handle `isLoading` state
-  - [x] Update components to use `dispatch(setLoading())` instead of local states
-- [x] Implement Initial Loader (Splash Screen or Skeleton) based on user choice
-- [x] Verify functionality
+## Next Objective: Project Details Page (Mock & Architecture)
+- [x] `types/project.ts` dosyasına `content` ve `images` (array) ekle.
+- [x] `services/projectService.ts` içindeki tamamlanan projelere sahte slider görselleri ve sahte uzun açıklama metinleri ekle.
+- [x] `FeaturedProjects.tsx` kartlarındaki linkleri güncelle (Sadece `status === 'completed'` olanlara tıklanabilsin).
+- [x] `ProjectDetail.tsx` sayfasını Figma/Modern tasarımlara uygun olarak kodla.
+  - [x] Başlık, Role (Altbaşlık) ve TechStack gösterimini ekle.
+  - [x] Görseller için Carousel / Slider bileşeni yap.
+  - [x] Proje İçeriği (Content) alanını ekle.
+  - [x] Sayfa altına "Önceki Tamamlanan Proje" ve "Sonraki Tamamlanan Proje" geçiş (navigasyon) butonlarını ekle.
+- [ ] (Not): Tüm yapı ileride Admin panel / Backend ile değişebilecek soyutlamada olmalı.
 
-## Next Objective: Pending User Decision
-- [ ] Bekleniyor...

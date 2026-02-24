@@ -17,24 +17,27 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    if (id) {
+    if (id && status === 'completed') {
       navigate(`/project/${id}`);
     }
   };
 
+  const isCompleted = status === 'completed';
+
   return (
     <div
-      onClick={handleCardClick}
+      onClick={isCompleted ? handleCardClick : undefined}
       className={`
         group relative flex flex-col 
         w-full h-[400px]
         transition-all duration-500 ease-out
-        hover:-translate-y-2 
-        ${id ? 'cursor-pointer' : ''}
+        ${isCompleted ? 'hover:-translate-y-2 cursor-pointer' : 'opacity-80 cursor-not-allowed grayscale-[0.2]'}
       `}
     >
       {/* Main Card Content Wrapper - Moved styling here so badge can be outside without clipping */}
-      <div className="absolute inset-0 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden group-hover:bg-white/10 group-hover:border-purple-500/50 group-hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] transition-all duration-500 pointer-events-none"></div>
+      <div className={`absolute inset-0 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden transition-all duration-500 pointer-events-none 
+        ${isCompleted ? 'group-hover:bg-white/10 group-hover:border-purple-500/50 group-hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]' : ''}
+      `}></div>
 
       {/* Main Layout containing content */}
       <div className="relative flex flex-col w-full h-full rounded-2xl overflow-hidden z-10">
@@ -43,13 +46,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           <img
             src={imageUrl}
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+            className={`w-full h-full object-cover transition-transform duration-700 ease-in-out ${isCompleted ? 'group-hover:scale-110' : ''}`}
           />
           
           {/* Dark overlay that appears on hover to make description readable */}
-          <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 flex items-center justify-center p-6">
+          <div className={`absolute inset-0 bg-black/80 opacity-0 ${isCompleted ? 'group-hover:opacity-100' : ''} transition-opacity duration-500 z-10 flex items-center justify-center p-6`}>
              {/* Description text sliding up */}
-             <p className="text-gray-200 text-sm md:text-base text-center translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100 line-clamp-6">
+             <p className={`text-gray-200 text-sm md:text-base text-center translate-y-8 opacity-0 ${isCompleted ? 'group-hover:translate-y-0 group-hover:opacity-100' : ''} transition-all duration-500 delay-100 line-clamp-6`}>
                 {description}
              </p>
           </div>
@@ -93,7 +96,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
         
         {/* Optional Action Button Container (Can be extended later) */}
-        {(id || projectUrl) && (
+        {isCompleted && (id || projectUrl) && (
             <div className="absolute bottom-4 opacity-0 group-hover:opacity-100 transition-all duration-300 z-30">
                {id ? (
                  <button 

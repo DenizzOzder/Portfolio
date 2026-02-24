@@ -14,4 +14,6 @@ export interface ProjectCardProps {
   role?: string; // User's role in the project
   date?: string; // Project date for sorting (e.g. '2023-10' or '2024')
   actionLabel?: string; // Optional custom label for the action button
+  content?: string; // HTML/Markdown formatted extensive project description
+  images?: string[]; // Array of image URLs for slider/carousel
 }
