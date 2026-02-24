@@ -136,6 +136,7 @@ export const FeaturedProjects: React.FC = () => {
                   transition={{ duration: 0.5, ease: "easeOut" }}
                 >
                   <ProjectCard 
+                    id={project.id}
                     title={project.title}
                     description={project.description}
                     imageUrl={project.imageUrl}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import type { ProjectCardProps } from '../../types';
 
 
@@ -14,26 +14,12 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   actionLabel,
   id,
 }) => {
-  const navigate = useNavigate();
-
-  const handleCardClick = () => {
-    if (id && status === 'completed') {
-      navigate(`/project/${id}`);
-    }
-  };
-
   const isCompleted = status === 'completed';
+  const targetUrl = id && isCompleted ? `/project/${id}` : undefined;
 
-  return (
-    <div
-      onClick={isCompleted ? handleCardClick : undefined}
-      className={`
-        group relative flex flex-col 
-        w-full h-[400px]
-        transition-all duration-500 ease-out
-        ${isCompleted ? 'hover:-translate-y-2 cursor-pointer' : 'opacity-80 cursor-not-allowed grayscale-[0.2]'}
-      `}
-    >
+  // Render the inner content of the card safely
+  const CardContent = (
+    <>
       {/* Main Card Content Wrapper - Moved styling here so badge can be outside without clipping */}
       <div className={`absolute inset-0 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden transition-all duration-500 pointer-events-none 
         ${isCompleted ? 'group-hover:bg-white/10 group-hover:border-purple-500/50 group-hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]' : ''}
@@ -99,17 +85,17 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         {isCompleted && (id || projectUrl) && (
             <div className="absolute bottom-4 opacity-0 group-hover:opacity-100 transition-all duration-300 z-30">
                {id ? (
-                 <button 
-                   onClick={(e) => { e.stopPropagation(); navigate(`/project/${id}`); }}
+                 <span 
                    className="inline-flex items-center text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors bg-black/60 px-3 py-1 rounded-full backdrop-blur-sm border border-purple-500/30"
                  >
                    {actionLabel || 'Daha Fazla Bilgi \u2192'}
-                 </button>
+                 </span>
                ) : (
                  <a 
                    href={projectUrl} 
                    target="_blank" 
                    rel="noopener noreferrer"
+                   onClick={(e) => e.stopPropagation()} // Prevent card click when clicking external link
                    className="inline-flex items-center text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors bg-black/60 px-3 py-1 rounded-full backdrop-blur-sm border border-purple-500/30"
                  >
                    {actionLabel || 'Projeyi İncele \u2192'}
@@ -130,6 +116,29 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           {status === 'completed' ? 'Tamamlandı' : 'Devam Ediyor'}
         </div>
       )}
+    </>
+  );
+
+  const cardClasses = `
+    group relative flex flex-col 
+    w-full h-[400px]
+    transition-all duration-500 ease-out text-left
+    ${isCompleted ? 'hover:-translate-y-2 cursor-pointer' : 'opacity-80 cursor-not-allowed grayscale-[0.2]'}
+  `;
+
+  // If a valid route target exists and project is completed, wrap in Link for native SPA routing
+  if (targetUrl) {
+    return (
+      <Link to={targetUrl} className={cardClasses}>
+        {CardContent}
+      </Link>
+    );
+  }
+
+  // Fallback to div for non-navigable cards
+  return (
+    <div className={cardClasses}>
+      {CardContent}
     </div>
   );
 };
