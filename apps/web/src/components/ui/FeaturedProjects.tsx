@@ -14,13 +14,13 @@ export const FeaturedProjects: React.FC = () => {
 
   const filteredAndSortedProjects = useMemo(() => {
     // 1. Filter
-    let result = projects;
+    let result = (projects || []) as any[];
     if (filter !== 'all') {
       result = result.filter(project => project.status === filter);
     }
 
     // 2. Sort
-    return result.sort((a, b) => {
+    return [...result].sort((a, b) => {
       // Prioritize in-progress
       if (a.status === 'in-progress' && b.status !== 'in-progress') return -1;
       if (b.status === 'in-progress' && a.status !== 'in-progress') return 1;
@@ -33,8 +33,6 @@ export const FeaturedProjects: React.FC = () => {
   }, [projects, filter]);
 
   const displayedProjects = showAll ? filteredAndSortedProjects : filteredAndSortedProjects.slice(0, 4);
-
-
 
   return (
     <section 
@@ -91,7 +89,7 @@ export const FeaturedProjects: React.FC = () => {
             {/* Render Projects inline, loading overlay handles the wait */}
             {displayedProjects.map((project) => (
                 <motion.div
-                  key={project.title} // Ensure unique and stable key for animations
+                  key={project.id || project.title} // Ensure unique and stable key for animations
                   layout
                   initial={{ opacity: 0, scale: 0.8, y: 30 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -137,3 +135,5 @@ export const FeaturedProjects: React.FC = () => {
     </section>
   );
 };
+
+export default FeaturedProjects;

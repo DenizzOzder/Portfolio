@@ -8,4 +8,5 @@ export interface EducationItem {
   techStacks: string[];
   badges?: { text: string; color: string }[];
   emphasizeSchool?: boolean;
+  sortOrder?: number;
 }

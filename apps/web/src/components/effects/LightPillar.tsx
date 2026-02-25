@@ -378,7 +378,7 @@ const LightPillar = ({
         }
 
         // Draw trail (comet tail)
-        bit.trail.forEach((point, index) => {
+        bit.trail.forEach((point: { x: number; y: number; opacity: number }, index: number) => {
           const trailOpacity = point.opacity * (1 - index / bit.trail.length) * 0.5;
           const trailSize = bit.size * (1 - index / bit.trail.length);
           

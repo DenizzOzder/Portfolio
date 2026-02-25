@@ -6,3 +6,5 @@ export const contactSchema = z.object({
   message: z.string().min(10, "Mesajınız en az 10 karakter olmalıdır")
 });
 
+export type ContactFormData = z.infer<typeof contactSchema>;
+
