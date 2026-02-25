@@ -6,7 +6,7 @@
     "./*": "./src/*.tsx"
   },
   "scripts": {
-    "lint": "eslint src/**/*.tsx"
+    "lint": "eslint src/**/*.tsx --no-error-on-unmatched-pattern"
   },
   "devDependencies": {
     "react": "^18.2.0",
