@@ -1,4 +1,5 @@
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const Dashboard: React.FC = () => {
   return (
@@ -31,9 +32,31 @@ const Dashboard: React.FC = () => {
 
       <div className="mt-12 bg-white/5 border border-white/10 rounded-2xl p-8 shadow-xl">
         <h2 className="text-2xl font-bold text-white mb-4">Hoş Geldiniz</h2>
-        <p className="text-gray-300 leading-relaxed max-w-3xl">
+        <p className="text-gray-300 leading-relaxed max-w-3xl mb-8">
           Bu yönetim paneli üzerinden portfolyo sitenizdeki verileri dinamik olarak yönetebilir, yeni projeler ekleyebilir ve kariyer geçmişinizi güncelleyebilirsiniz. Sol menüden işlem yapmak istediğiniz modülü seçin.
         </p>
+
+        {/* Development Seed Data Button */}
+        <div className="p-6 border border-white/20 bg-black/20 rounded-xl max-w-xl">
+          <h3 className="text-lg font-bold text-white mb-2">Veritabanını Doldur (Geliştirici)</h3>
+          <p className="text-gray-400 text-sm mb-4">Eski statik mock verileri (Proje, Kariyer, Eğitim) Firestore veritabanına otomatik yüklemek için bu butonu kullanabilirsiniz.</p>
+          <button 
+            onClick={async () => {
+              try {
+                const toastId = toast.loading('Veriler Firestore\'a yükleniyor...');
+                const { uploadMocksToFirestore } = await import('../../../scripts/seed-firestore');
+                await uploadMocksToFirestore();
+                toast.success('Tüm mock veriler başarıyla Firestore\'a yüklendi!', { id: toastId });
+              } catch (error) {
+                console.error(error);
+                toast.error('Veri yükleme sırasında bir hata oluştu.');
+              }
+            }}
+            className="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-xl shadow-lg hover:-translate-y-0.5 transition-all"
+          >
+            Mock Verileri Yükle
+          </button>
+        </div>
       </div>
     </div>
   );
