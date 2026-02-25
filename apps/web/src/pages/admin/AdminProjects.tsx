@@ -11,6 +11,7 @@ const AdminProjects: React.FC = () => {
    const [isEditing, setIsEditing] = useState(false);
    const [currentProject, setCurrentProject] = useState<Partial<ProjectCardProps>>({});
    const [imageFile, setImageFile] = useState<File | null>(null);
+   const [galleryFiles, setGalleryFiles] = useState<File[]>([]);
    const [isSaving, setIsSaving] = useState(false);
 
    useEffect(() => {
@@ -38,16 +39,30 @@ const AdminProjects: React.FC = () => {
       try {
          let uploadedImageUrl = currentProject.imageUrl || '';
 
-         // If user selected a new image file, upload it to Storage
+         // If user selected a new cover image, upload it to Storage
          if (imageFile) {
             const storageRef = ref(storage, `projects/${Date.now()}_${imageFile.name}`);
             const snapshot = await uploadBytes(storageRef, imageFile);
             uploadedImageUrl = await getDownloadURL(snapshot.ref);
          }
 
+         // Upload gallery images
+         const galleryUrls: string[] = [];
+         for (const file of galleryFiles) {
+            const storageRef = ref(storage, `projects/gallery/${Date.now()}_${file.name}`);
+            const snapshot = await uploadBytes(storageRef, file);
+            const url = await getDownloadURL(snapshot.ref);
+            galleryUrls.push(url);
+         }
+
+         // Merge existing gallery images with newly uploaded ones
+         const existingImages = currentProject.images ?? [];
+         const allImages = [...existingImages, ...galleryUrls];
+
          const projectData = {
             ...currentProject,
             imageUrl: uploadedImageUrl,
+            images: allImages,
             // Ensure arrays are handled correctly if user types comma separated strings
             techStacks: typeof currentProject.techStacks === 'string' 
                ? (currentProject.techStacks as string).split(',').map(s => s.trim()) 
@@ -65,6 +80,7 @@ const AdminProjects: React.FC = () => {
          toast.success('Proje başarıyla kaydedildi!', { id: loadingToast });
          setIsEditing(false);
          setImageFile(null);
+         setGalleryFiles([]);
          setCurrentProject({});
          fetchProjects();
       } catch (error) {
@@ -97,9 +113,10 @@ const AdminProjects: React.FC = () => {
          });
       } else {
          setCurrentProject({ status: 'completed' });
-      }
-      setImageFile(null);
-      setIsEditing(true);
+       }
+       setImageFile(null);
+       setGalleryFiles([]);
+       setIsEditing(true);
    };
 
    if (isLoading) return <div className="text-white">Yükleniyor...</div>;
@@ -188,9 +205,52 @@ const AdminProjects: React.FC = () => {
                            className="text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-purple-600/20 file:text-purple-400 hover:file:bg-purple-600/30"
                         />
                      </div>
-                  </div>
+                   </div>
 
-                  <div className="flex justify-end gap-3 pt-6 border-t border-white/10 mt-6 !mb-0">
+                   {/* Gallery Images Section */}
+                   <div className="bg-black/20 p-4 rounded-xl border border-white/5">
+                      <label className="block text-sm font-bold text-gray-300 mb-3">Galeri Görselleri (Slider için birden fazla)</label>
+                      
+                      {/* Existing gallery preview */}
+                      {(currentProject.images ?? []).length > 0 && (
+                         <div className="flex flex-wrap gap-3 mb-4">
+                            {(currentProject.images ?? []).map((url, idx) => (
+                               <div key={idx} className="relative group">
+                                  <img src={url} alt={`Gallery ${idx + 1}`} className="w-20 h-20 object-cover rounded-lg border border-white/10" />
+                                  <button
+                                     type="button"
+                                     onClick={() => {
+                                        const updated = [...(currentProject.images ?? [])];
+                                        updated.splice(idx, 1);
+                                        setCurrentProject({ ...currentProject, images: updated });
+                                     }}
+                                     className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                                  >
+                                     ✕
+                                  </button>
+                               </div>
+                            ))}
+                         </div>
+                      )}
+
+                      {/* New gallery file picker */}
+                      <input 
+                         type="file" 
+                         accept="image/*"
+                         multiple
+                         onChange={(e) => {
+                            if (e.target.files) {
+                               setGalleryFiles(prev => [...prev, ...Array.from(e.target.files!)]);
+                            }
+                         }}
+                         className="text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-purple-600/20 file:text-purple-400 hover:file:bg-purple-600/30"
+                      />
+                      {galleryFiles.length > 0 && (
+                         <p className="text-xs text-gray-500 mt-2">{galleryFiles.length} yeni görsel seçildi</p>
+                      )}
+                   </div>
+
+                   <div className="flex justify-end gap-3 pt-6 border-t border-white/10 mt-6 !mb-0">
                      <button type="button" onClick={() => setIsEditing(false)} className="px-5 py-2 rounded-xl font-bold text-gray-400 hover:text-white transition-colors">İptal</button>
                      <button type="submit" disabled={isSaving} className="px-5 py-2 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl shadow-lg disabled:opacity-50 transition-all">
                         {isSaving ? 'Kaydediliyor...' : 'Kaydet'}

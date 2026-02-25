@@ -113,12 +113,12 @@ const ProjectDetail = () => {
           <div className="lg:col-span-2 flex flex-col gap-12">
             
             {/* Image Slider */}
-            {project.images && project.images.length > 0 ? (
+            {(project.images ?? []).length > 0 ? (
               <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-black/50 border border-white/5 shadow-[0_0_50px_rgba(0,0,0,0.5)] group/slider">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={currentImageIndex}
-                    src={project.images[currentImageIndex]}
+                    src={(project.images ?? [])[currentImageIndex] || project.imageUrl}
                     alt={`${project.title} screenshot ${currentImageIndex + 1}`}
                     className="absolute inset-0 w-full h-full object-cover"
                     initial={{ opacity: 0, scale: 1.05 }}
@@ -129,7 +129,7 @@ const ProjectDetail = () => {
                 </AnimatePresence>
                 
                 {/* Image Navigation Controls */}
-                {project.images.length > 1 && (
+                {(project.images ?? []).length > 1 && (
                   <>
                     <button 
                       onClick={prevImage}
@@ -145,7 +145,7 @@ const ProjectDetail = () => {
                     </button>
                     {/* Dots */}
                     <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                      {project.images.map((_, idx) => (
+                      {(project.images ?? []).map((_, idx) => (
                         <button
                           key={idx}
                           onClick={() => setCurrentImageIndex(idx)}
@@ -191,7 +191,7 @@ const ProjectDetail = () => {
                <div className="mb-8">
                   <span className="block text-sm text-gray-400 mb-3">Kullanılan Teknolojiler</span>
                   <div className="flex flex-wrap gap-2">
-                    {project.techStack.map(tech => (
+                    {project.techStack?.map(tech => (
                       <div key={tech.name} className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10">
                          <img 
                            src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${tech.iconName}`} 
