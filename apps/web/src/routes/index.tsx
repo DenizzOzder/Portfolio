@@ -24,6 +24,7 @@ const AdminCertificates = lazy(() => import('@/pages/admin/AdminCertificates').c
   // Graceful fallback if file is missing (will create next)
   return { default: () => <div className="p-6 text-white text-center">Sertifikalar Modülü Yapım Aşamasında</div> };
 }));
+const AdminAbout = lazy(() => import('@/pages/admin/AdminAbout'));
 
 // Suspense fallback for lazy routes
 const LazyRoute = ({ children }: { children: React.ReactNode }) => (
@@ -114,6 +115,10 @@ export const router = createBrowserRouter([
           {
             path: "certificates",
             element: <LazyRoute><AdminCertificates /></LazyRoute>
+          },
+          {
+            path: "about",
+            element: <LazyRoute><AdminAbout /></LazyRoute>
           },
           {
             path: "settings",
