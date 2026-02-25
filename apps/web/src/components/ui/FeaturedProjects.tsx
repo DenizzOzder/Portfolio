@@ -4,7 +4,7 @@ import { ProjectCard } from './ProjectCard';
 import { useProjects } from '../../hooks/useProjects';
 import { useGlobalLoaderSync } from '../../hooks/useGlobalLoaderSync';
 
-type FilterType = 'all' | 'completed' | 'in-progress';
+import type { FilterType } from '@/types/ui';
 
 export const FeaturedProjects: React.FC = () => {
   const [filter, setFilter] = useState<FilterType>('all');
@@ -103,7 +103,7 @@ export const FeaturedProjects: React.FC = () => {
                     title={project.title}
                     description={project.description}
                     imageUrl={project.imageUrl}
-                    techStack={project.techStack}
+                    techStacks={project.techStacks}
                     projectUrl={project.projectUrl}
                     status={project.status}
                     role={project.role}

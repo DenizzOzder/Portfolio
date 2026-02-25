@@ -1,35 +1,7 @@
 // @ts-nocheck
 import { useEffect, useRef } from 'react';
 
-interface Disc {
-  p: number;
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-}
-
-interface Point {
-  x: number;
-  y: number;
-}
-
-interface Particle {
-  x: number;
-  sx: number;
-  dx: number;
-  y: number;
-  vy: number;
-  p: number;
-  r: number;
-  c: string;
-}
-
-interface Clip {
-  disc?: Disc;
-  i?: number;
-  path?: Path2D;
-}
+import type { Disc, Point, Particle, Clip } from '@/types/effects';
 
 export const BlackHoleBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

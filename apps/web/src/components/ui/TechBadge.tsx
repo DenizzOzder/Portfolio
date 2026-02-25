@@ -1,4 +1,5 @@
 import React from 'react';
+import type { TechBadgeProps } from '@/types/ui';
 
 // Maps common tech stack names to their DevIcon class or URL path
 const TECH_ICON_MAP: Record<string, string> = {
@@ -23,9 +24,6 @@ const TECH_ICON_MAP: Record<string, string> = {
   'Java': 'java/java-original.svg'
 };
 
-interface TechBadgeProps {
-  tech: string;
-}
 
 export const TechBadge: React.FC<TechBadgeProps> = ({ tech }) => {
   const iconPath = TECH_ICON_MAP[tech];
