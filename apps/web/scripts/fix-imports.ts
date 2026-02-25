@@ -23,7 +23,7 @@ const files = getAllFiles(srcDir);
 
 files.forEach(file => {
   let content = fs.readFileSync(file, 'utf8');
-  let originalContent = content;
+  const originalContent = content;
 
   // Replace relative imports to src files
   // Match single or double quotes
