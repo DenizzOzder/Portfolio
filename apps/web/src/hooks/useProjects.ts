@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getFeaturedProjects } from '@/services/projectService';
+import { getFeaturedProjects } from '@/services/ProjectService';
 
 export const useProjects = () => {
   return useQuery({

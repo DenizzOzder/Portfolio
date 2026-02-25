@@ -15,8 +15,9 @@ const ProjectDetail = () => {
 
   // Compute derived state using cached data
   const { project, completedProjects } = useMemo(() => {
-    const completedList = projects.filter(p => p.status === 'completed');
-    const found = completedList.find(p => p.id === id) || null;
+    const list = (projects || []) as any[];
+    const completedList = list.filter((p: any) => p.status === 'completed');
+    const found = completedList.find((p: any) => p.id === id) || null;
     return { project: found, completedProjects: completedList };
   }, [projects, id]);
 
@@ -30,7 +31,7 @@ const ProjectDetail = () => {
   const { prevProject, nextProject } = useMemo(() => {
     if (!project || completedProjects.length === 0) return { prevProject: null, nextProject: null };
     
-    const currentIndex = completedProjects.findIndex(p => p.id === project.id);
+    const currentIndex = completedProjects.findIndex((p: any) => p.id === project.id);
     if (currentIndex === -1) return { prevProject: null, nextProject: null };
 
     const prev = currentIndex > 0 ? completedProjects[currentIndex - 1] : null;
@@ -133,7 +134,7 @@ const ProjectDetail = () => {
                     </button>
                     {/* Dots */}
                     <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                      {(project.images ?? []).map((_, idx) => (
+                      {(project.images ?? []).map((_: any, idx: number) => (
                         <button
                           key={idx}
                           onClick={() => setCurrentImageIndex(idx)}

@@ -1,5 +1,5 @@
-export * from './icon';
-export * from './lightPillar';
+export * from './Icon';
+export * from './LightPillar';
 export * from './project';
 export * from './about';
 export * from './admin';
