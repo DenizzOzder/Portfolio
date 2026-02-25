@@ -25,6 +25,7 @@ const AdminCertificates = lazy(() => import('@/pages/admin/AdminCertificates').c
   return { default: () => <div className="p-6 text-white text-center">Sertifikalar Modülü Yapım Aşamasında</div> };
 }));
 const AdminAbout = lazy(() => import('@/pages/admin/AdminAbout'));
+const AdminTechStack = lazy(() => import('@/pages/admin/AdminTechStack'));
 
 // Suspense fallback for lazy routes
 const LazyRoute = ({ children }: { children: React.ReactNode }) => (
@@ -119,6 +120,10 @@ export const router = createBrowserRouter([
           {
             path: "about",
             element: <LazyRoute><AdminAbout /></LazyRoute>
+          },
+          {
+            path: "techstack",
+            element: <LazyRoute><AdminTechStack /></LazyRoute>
           },
           {
             path: "settings",

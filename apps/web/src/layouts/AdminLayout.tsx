@@ -22,6 +22,7 @@ export const AdminLayout = () => {
     { label: 'Eğitimler', path: '/admin/education' },
     { label: 'Kariyer', path: '/admin/career' },
     { label: 'Sertifikalar', path: '/admin/certificates' },
+    { label: 'Tech Stack', path: '/admin/techstack' },
     { label: 'Hakkımda', path: '/admin/about' },
     { label: 'Profil Ayr.', path: '/admin/settings' },
   ];
