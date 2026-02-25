@@ -16,6 +16,14 @@ const ProjectDetail = lazy(() => import('@/pages/ProjectDetail'));
 // Lazy load admin pages
 const AdminLogin = lazy(() => import('@/pages/admin/Login'));
 const AdminDashboard = lazy(() => import('@/pages/admin/Dashboard'));
+const AdminProjects = lazy(() => import('@/pages/admin/AdminProjects'));
+const AdminEducation = lazy(() => import('@/pages/admin/AdminEducation'));
+const AdminCareer = lazy(() => import('@/pages/admin/AdminCareer'));
+const AdminSettings = lazy(() => import('@/pages/admin/AdminSettings'));
+const AdminCertificates = lazy(() => import('@/pages/admin/AdminCertificates').catch(() => {
+  // Graceful fallback if file is missing (will create next)
+  return { default: () => <div className="p-6 text-white text-center">Sertifikalar Modülü Yapım Aşamasında</div> };
+}));
 
 // Suspense fallback for lazy routes
 const LazyRoute = ({ children }: { children: React.ReactNode }) => (
@@ -91,7 +99,26 @@ export const router = createBrowserRouter([
               </LazyRoute>
             )
           },
-          // Future admin child modules will map here
+          {
+            path: "projects",
+            element: <LazyRoute><AdminProjects /></LazyRoute>
+          },
+          {
+            path: "education",
+            element: <LazyRoute><AdminEducation /></LazyRoute>
+          },
+          {
+            path: "career",
+            element: <LazyRoute><AdminCareer /></LazyRoute>
+          },
+          {
+            path: "certificates",
+            element: <LazyRoute><AdminCertificates /></LazyRoute>
+          },
+          {
+            path: "settings",
+            element: <LazyRoute><AdminSettings /></LazyRoute>
+          },
         ]
       }
     ]
