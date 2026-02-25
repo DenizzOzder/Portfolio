@@ -52,13 +52,25 @@ export const Education = () => {
                   {/* Connecting Horizontal Line (Desktop only) */}
                   <div className={`hidden md:block absolute top-1/2 transform -translate-y-1/2 h-[2px] bg-gradient-to-r ${isEven ? 'from-transparent to-pink-500/50 right-1/2 w-12' : 'from-pink-500/50 to-transparent left-1/2 w-12'} z-0`}></div>
 
-                  {/* Content Card with floating Status Badge if exists */}
+                  {/* Content Card with floating Status Badges if exists */}
                   <div className={`w-full md:w-[48%] relative ${isEven ? 'md:pr-8 lg:pr-12' : 'md:pl-8 lg:pl-12'}`}>
                     
-                    {/* Floating Status Ribbon / Badge */}
-                    {edu.status && (
-                        <div className={`absolute -top-4 ${isEven ? 'right-6 md:right-12' : 'left-8 md:left-12'} z-30 inline-flex items-center justify-center h-8 px-4 text-xs font-black tracking-widest uppercase rounded-full shadow-[0_4px_10px_rgba(0,0,0,0.5)] border ${edu.status.includes('Ara Verdim') ? 'text-amber-200 bg-gradient-to-r from-amber-600 to-amber-900 border-amber-500' : 'text-emerald-200 bg-gradient-to-r from-emerald-600 to-emerald-900 border-emerald-500'}`}>
-                          {edu.status}
+                    {/* Floating Status Ribbons / Badges */}
+                    {edu.badges && edu.badges.length > 0 && (
+                        <div className={`absolute -top-4 ${isEven ? 'right-6 md:right-12' : 'left-8 md:left-12'} z-30 flex gap-2`}>
+                          {edu.badges.map((badge, bIdx) => {
+                            // Basit bir class eşlemesi (admin panelden green, orange, blue vb. gelebilir)
+                            let colorClasses = 'text-gray-200 bg-gradient-to-r from-gray-600 to-gray-900 border-gray-500';
+                            if (badge.color === 'green') colorClasses = 'text-emerald-200 bg-gradient-to-r from-emerald-600 to-emerald-900 border-emerald-500';
+                            if (badge.color === 'orange') colorClasses = 'text-amber-200 bg-gradient-to-r from-amber-600 to-amber-900 border-amber-500';
+                            if (badge.color === 'blue') colorClasses = 'text-blue-200 bg-gradient-to-r from-blue-600 to-blue-900 border-blue-500';
+
+                            return (
+                              <div key={bIdx} className={`inline-flex items-center justify-center h-8 px-4 text-xs font-black tracking-widest uppercase rounded-full shadow-[0_4px_10px_rgba(0,0,0,0.5)] border ${colorClasses}`}>
+                                {badge.text}
+                              </div>
+                            );
+                          })}
                         </div>
                     )}
 
@@ -86,18 +98,31 @@ export const Education = () => {
                           </div>
                         </div>
 
-                        {/* Title (Degree) & Subtitle (Institution) */}
-                        <h3 className="text-2xl md:text-3xl font-black text-white mb-2 leading-tight drop-shadow-md">
-                          {edu.degree}
-                        </h3>
-                        <h4 className="text-lg md:text-xl font-semibold text-purple-300/80 mb-6 tracking-wide drop-shadow-sm">
-                          {edu.institution}
-                        </h4>
+                        {/* Title & Subtitle based on emphasizeSchool flag */}
+                        {edu.emphasizeSchool ? (
+                           <>
+                             <h3 className="text-2xl md:text-3xl font-black text-white mb-2 leading-tight drop-shadow-md">
+                               {edu.institution}
+                             </h3>
+                             <h4 className="text-lg md:text-xl font-semibold text-purple-300/80 mb-6 tracking-wide drop-shadow-sm">
+                               {edu.degree}
+                             </h4>
+                           </>
+                        ) : (
+                           <>
+                             <h3 className="text-2xl md:text-3xl font-black text-white mb-2 leading-tight drop-shadow-md">
+                               {edu.degree}
+                             </h3>
+                             <h4 className="text-lg md:text-xl font-semibold text-purple-300/80 mb-6 tracking-wide drop-shadow-sm">
+                               {edu.institution}
+                             </h4>
+                           </>
+                        )}
 
                         {/* Technologies / Skills */}
-                        {edu.tech && edu.tech.length > 0 && (
+                        {edu.techStacks && edu.techStacks.length > 0 && (
                           <div className="flex flex-wrap gap-2">
-                            {edu.tech.map((t, idx) => (
+                            {edu.techStacks.map((t, idx) => (
                               <span 
                                 key={idx} 
                                 className="px-3 py-1 text-xs md:text-sm font-semibold text-gray-300 bg-black/50 rounded-lg border border-white/5 transition-colors group-hover:border-pink-500/30 group-hover:text-white"

@@ -9,7 +9,9 @@ const mockEducationData: EducationItem[] = [
     date: 'Kasım 2024 - Aralık 2025',
     grade: '',
     status: '',
-    tech: ['HTML/CSS', 'JavaScript', 'ReactJS', 'NodeJS', 'TypeScript', 'MongoDB', 'Git', 'GitHub'],
+    techStacks: ['HTML/CSS', 'JavaScript', 'ReactJS', 'NodeJS', 'TypeScript', 'MongoDB', 'Git', 'GitHub'],
+    badges: [{ text: 'Tamamlandı', color: 'green' }],
+    emphasizeSchool: false,
   },
   {
     id: 2,
@@ -18,7 +20,9 @@ const mockEducationData: EducationItem[] = [
     date: '2022 - 2026',
     grade: '',
     status: 'Öğrenime Ara Verdim',
-    tech: [],
+    techStacks: [],
+    badges: [{ text: 'Öğrenime Ara Verdim', color: 'orange' }],
+    emphasizeSchool: true,
   },
   {
     id: 3,
@@ -27,7 +31,9 @@ const mockEducationData: EducationItem[] = [
     date: '2018 - 2020',
     grade: 'Ortalama: 3.43',
     status: '%100 Burslu',
-    tech: ['C++', 'SQL', 'Java', 'HTML', 'CSS', 'JS'],
+    techStacks: ['C++', 'SQL', 'Java', 'HTML', 'CSS', 'JS'],
+    badges: [{ text: '%100 Burslu', color: 'blue' }],
+    emphasizeSchool: true,
   },
   {
     id: 4,
@@ -36,7 +42,8 @@ const mockEducationData: EducationItem[] = [
     date: '2014 - 2018',
     grade: 'Ortalama: 80',
     status: '',
-    tech: ['C#', 'SQL', 'PHP', 'HTML'],
+    techStacks: ['C#', 'SQL', 'PHP', 'HTML'],
+    emphasizeSchool: true,
   }
 ];
 

@@ -1,6 +1,17 @@
 import React from 'react';
 import LightPillar from '../effects/LightPillar';
 import avatarImg from '../../assets/avatar.png';
+import type { HeroContent } from '@/types/hero';
+
+const mockHeroData: HeroContent = {
+  avatars: [
+    avatarImg,
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=b6e3f4' // Mock 2nd avatar
+  ],
+  title: 'Full Stack',
+  subtitle: 'Developer',
+  description: 'Web uygulamaları ve dijital deneyimler geliştiriyorum'
+};
 
 const Hero = () => {
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
@@ -49,16 +60,16 @@ const Hero = () => {
 
         <h1 className="text-6xl md:text-8xl font-black tracking-tight mb-6 drop-shadow-2xl">
             <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-200 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-                Full Stack
+                {mockHeroData.title}
             </span>
             <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-400 to-purple-400 animate-gradient drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-                Developer
+                {mockHeroData.subtitle}
             </span>
         </h1>
 
         <p className="text-xl md:text-2xl text-gray-200 mb-12 max-w-2xl font-medium drop-shadow-md">
-            Web uygulamaları ve dijital deneyimler geliştiriyorum
+            {mockHeroData.description}
         </p>
 
         <div className="flex flex-col items-center gap-6">

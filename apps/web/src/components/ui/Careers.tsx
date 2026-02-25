@@ -1,5 +1,7 @@
 import Particles from '../effects/Particles';
 
+import { TechBadge } from './TechBadge';
+
 const experiences = [
   {
     id: 1,
@@ -7,12 +9,12 @@ const experiences = [
     company: 'Bimakas',
     date: '2026 – Present',
     description: `TypeScript tabanlı Layered Architecture (Katmanlı Mimari: GraphQL Resolvers → Services → Repositories → Firebase) yapısında görev alıyor, sistemin geneline yeni feature'lar geliştiriyor ve servislerin optimizasyonunu sağlıyorum. Firebase üzerine kurgulanmış, güçlü ve ölçeklenebilir altyapıda modüller tasarlayarak süreçleri hızlandırıyorum. Görev aldığım ilk günden itibaren sorumluluklarımı production-ready standartlarda teslim ediyor; TypeScript ekosistemine hızlı adaptasyonumla aktif geliştirme döngüsüne değer katıyorum.`,
-    tech: [
-      { name: 'TypeScript', iconName: 'typescript/typescript-original.svg' },
-      { name: 'Firebase', iconName: 'firebase/firebase-plain.svg' },
-      { name: 'GraphQL', iconName: 'graphql/graphql-plain.svg' }
-    ],
-    architecture: 'Katmanlı Mimari (GraphQL Resolvers → Services → Repositories → Firebase)'
+    techStacks: [
+      'Katmanlı Mimari (GraphQL Resolvers → Services → Repositories → Firebase)',
+      'TypeScript',
+      'Firebase',
+      'GraphQL'
+    ]
   },
   {
     id: 2,
@@ -20,11 +22,9 @@ const experiences = [
     company: '',
     date: '2022 – Present',
     description: `Sistem operasyonlarının devamlılığını sağlarken yazılım ekibiyle dirsek teması halinde çalışıyor, bug triage ve haftalık teknik raporlama süreçlerini uçtan uca yönetiyorum. Kritik sistemsel düzeydeki hataları henüz kullanıcıya yansımadan tespit ederek geliştirme ekiplerine iletiyor ve çözüm adımlarını yakından takip ediyorum. Hem teknik analiz hem de kriz anlarındaki problem çözme süreçlerinde inisiyatif alarak sistem kararlılığını artırıyorum.`,
-    tech: [
-      { name: 'HTML5', iconName: 'html5/html5-original.svg' },
-      { name: 'CSS3', iconName: 'css3/css3-original.svg' },
-    ],
-    architecture: null
+    techStacks: [
+      'HTML/CSS'
+    ]
   }
 ];
 
@@ -71,12 +71,6 @@ export const Careers = () => {
           {/* Cards */}
           <div className="flex flex-col gap-8 md:gap-12 relative">
             {experiences.map((exp, index) => {
-              // 0 -> right aligned visually (left block) 
-              // 1 -> left aligned visually (right block)
-              // Wait, timeline logic:
-              // Index 0 (even): Card on the LEFT, text right aligned
-              // Index 1 (odd): Card on the RIGHT, text left aligned
-              // Or vice versa. Let's make: Even -> Card Left, Odd -> Card Right.
               const isEven = index % 2 === 0;
 
               return (
@@ -111,27 +105,10 @@ export const Careers = () => {
                       </p>
 
                       <div className="flex flex-col items-center gap-4 mt-8">
-                        {/* Architecture / Top Tag */}
-                        {exp.architecture && (
-                          <div className="px-4 py-2 text-xs font-semibold text-purple-200 bg-purple-900/40 rounded-xl border border-purple-500/30 backdrop-blur-md shadow-inner text-center">
-                            {exp.architecture}
-                          </div>
-                        )}
-
-                        {/* Tech Stack Icons */}
+                        {/* Tech Stack Icons & Badges */}
                         <div className="flex flex-wrap gap-4 justify-center">
-                          {exp.tech.map((t, idx) => (
-                            <div key={idx} className="flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-gray-200 bg-black/60 rounded-xl border border-white/5 backdrop-blur-md shadow-inner transition-colors group-hover:border-pink-500/30">
-                              <img 
-                                src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${t.iconName}`} 
-                                alt={t.name}
-                                className="w-5 h-5 opacity-80 group-hover:opacity-100 transition-opacity filter grayscale group-hover:grayscale-0"
-                                onError={(e) => {
-                                  e.currentTarget.style.display = 'none';
-                                }}
-                              />
-                              <span>{t.name}</span>
-                            </div>
+                          {exp.techStacks.map((t, idx) => (
+                            <TechBadge key={idx} tech={t} />
                           ))}
                         </div>
                       </div>

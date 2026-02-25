@@ -1,13 +1,8 @@
-export interface TechStackItem {
-  name: string;
-  iconName: string; // Devicon path, e.g., 'react/react-original.svg'
-}
-
 export interface ProjectCardProps {
   title: string;
   description: string;
   imageUrl: string;
-  techStack: TechStackItem[];
+  techStacks: string[];
   id?: string; // Optional unique identifier for routing
   projectUrl?: string; // Optional link to the live project or github repo
   status?: 'completed' | 'in-progress'; // Status indicator

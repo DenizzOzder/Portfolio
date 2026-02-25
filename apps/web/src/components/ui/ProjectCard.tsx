@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import type { ProjectCardProps } from '../../types';
-
+import { TechBadge } from './TechBadge';
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
   title,
   description,
   imageUrl,
-  techStack,
+  techStacks = [],
   projectUrl,
   status,
   role,
@@ -59,25 +59,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
           {/* Tech Stack SVGs Row - Centered */}
           <div className="flex flex-wrap justify-center gap-2 mt-1.5">
-          {techStack.map((tech) => (
-            <div
-              key={tech.name}
-              className="group/tech relative flex items-center justify-center"
-              title={tech.name} // Native browser tooltip
-            >
-              <img
-                src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${tech.iconName}`}
-                alt={tech.name}
-                className="w-6 h-6 opacity-60 group-hover/tech:opacity-100 transition-opacity filter grayscale group-hover/tech:grayscale-0"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.parentElement?.querySelector('.fallback-text')?.classList.remove('hidden');
-                }}
-              />
-              <span className="fallback-text hidden text-xs font-bold text-gray-400 group-hover/tech:text-white transition-colors">
-                {tech.name.substring(0, 2)}
-              </span>
-            </div>
+          {techStacks.map((tech) => (
+             <TechBadge key={tech} tech={tech} />
           ))}
         </div>
         

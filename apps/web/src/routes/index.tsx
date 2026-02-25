@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { Layout } from '@/layouts/Layout';
-
+import { AdminLayout } from '@/layouts/AdminLayout';
+import { ProtectedRoute } from '@/components/admin/ProtectedRoute';
 
 // Eagerly load the Home page for instant interaction when possible
 import Home from '@/pages/Home';
@@ -12,6 +13,10 @@ const Projects = lazy(() => import('@/pages/Projects'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const ProjectDetail = lazy(() => import('@/pages/ProjectDetail'));
 
+// Lazy load admin pages
+const AdminLogin = lazy(() => import('@/pages/admin/Login'));
+const AdminDashboard = lazy(() => import('@/pages/admin/Dashboard'));
+
 // Suspense fallback for lazy routes
 const LazyRoute = ({ children }: { children: React.ReactNode }) => (
   <Suspense fallback={<div className="min-h-screen w-full bg-[#050010]" />}>
@@ -20,6 +25,7 @@ const LazyRoute = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const router = createBrowserRouter([
+  // Main Public Layout
   {
     element: <Layout />,
     children: [
@@ -61,4 +67,33 @@ export const router = createBrowserRouter([
       },
     ]
   },
+  // Admin App
+  {
+    path: "/admin/login",
+    element: (
+      <LazyRoute>
+        <AdminLogin />
+      </LazyRoute>
+    ),
+  },
+  {
+    path: "/admin",
+    element: <ProtectedRoute />,
+    children: [
+      {
+        element: <AdminLayout />,
+        children: [
+          {
+            index: true,
+            element: (
+              <LazyRoute>
+                <AdminDashboard />
+              </LazyRoute>
+            )
+          },
+          // Future admin child modules will map here
+        ]
+      }
+    ]
+  }
 ]);

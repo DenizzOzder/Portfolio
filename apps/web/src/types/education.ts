@@ -5,5 +5,7 @@ export interface EducationItem {
   date: string;
   grade: string;
   status: string;
-  tech: string[];
+  techStacks: string[];
+  badges?: { text: string; color: string }[];
+  emphasizeSchool?: boolean;
 }
