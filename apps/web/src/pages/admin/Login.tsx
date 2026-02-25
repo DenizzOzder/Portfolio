@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, type Location } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 
 const Login: React.FC = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -14,23 +16,17 @@ const Login: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Mock simple auth - Replace with real auth later payload
-      if (username === 'admin' && password === 'admin') {
-        localStorage.setItem('isAdminAuth', 'true');
-        toast.success('Giriş başarılı, yönlendiriliyorsunuz...');
-        
-        // Restore previous route or default to dashboard
-        const state = location.state as { from?: Location } | null;
-        const from = state?.from?.pathname || '/admin';
-        
-        // Small delay for toast
-        setTimeout(() => {
-          navigate(from, { replace: true });
-        }, 1000);
-      } else {
-         toast.error('Kullanıcı adı veya şifre hatalı!');
-         setIsLoading(false);
-      }
+      await signInWithEmailAndPassword(auth, email, password);
+      toast.success('Giriş başarılı, yönlendiriliyorsunuz...');
+      
+      // Restore previous route or default to dashboard
+      const state = location.state as { from?: Location } | null;
+      const from = state?.from?.pathname || '/admin';
+      
+      // Small delay for toast
+      setTimeout(() => {
+        navigate(from, { replace: true });
+      }, 1000);
     } catch (err) {
       console.error('Login error:', err);
       toast.error('Giriş yapılırken bir hata oluştu');
@@ -55,13 +51,13 @@ const Login: React.FC = () => {
 
          <form onSubmit={handleLogin} className="space-y-6">
             <div>
-               <label className="block text-sm font-bold text-gray-300 mb-2">Kullanıcı Adı</label>
+               <label className="block text-sm font-bold text-gray-300 mb-2">E-posta Adresi</label>
                <input 
-                  type="text" 
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  type="email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all"
-                  placeholder="admin"
+                  placeholder="admin@example.com"
                   required
                />
             </div>

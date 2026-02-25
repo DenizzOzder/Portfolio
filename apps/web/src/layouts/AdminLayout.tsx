@@ -1,13 +1,19 @@
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { signOut } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 
 export const AdminLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogout = () => {
-    localStorage.removeItem('isAdminAuth');
-    navigate('/admin/login');
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate('/admin/login');
+    } catch (error) {
+      console.error('Logout error', error);
+    }
   };
 
   const navItems = [
