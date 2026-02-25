@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
+    "./base": "./base.json",
     "./tailwind.config": "./tailwind.config.js"
   },
   "devDependencies": {
