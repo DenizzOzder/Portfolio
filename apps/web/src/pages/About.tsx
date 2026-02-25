@@ -102,14 +102,10 @@ const About = () => {
                   </h2>
                 )}
                 
-                <div className="prose prose-invert prose-lg text-gray-300 leading-relaxed font-light">
-                  {/* To handle simple newlines safely in React */}
-                  {row.content.split('\n').map((paragraph, index) => (
-                    <p key={index} className="mb-6 last:mb-0">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
+                <div
+                  className="prose prose-invert prose-lg text-gray-300 leading-relaxed font-light [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-purple-400 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-white [&_p]:mb-6 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:ml-6 [&_ol]:list-decimal [&_ol]:ml-6 [&_li]:mb-2 [&_strong]:font-bold [&_strong]:text-white [&_em]:italic [&_u]:underline"
+                  dangerouslySetInnerHTML={{ __html: row.content }}
+                />
               </motion.div>
 
             </div>

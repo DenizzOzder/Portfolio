@@ -3,6 +3,7 @@ import { collection, getDocs, doc, setDoc, deleteDoc, addDoc, query, orderBy } f
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '@/lib/firebase';
 import type { AboutRowItem } from '@/types';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 import toast from 'react-hot-toast';
 
 const AdminAbout: React.FC = () => {
@@ -117,7 +118,12 @@ const AdminAbout: React.FC = () => {
 
                   <div>
                      <label className="block text-sm font-bold text-gray-300 mb-2">İçerik</label>
-                     <textarea required rows={6} value={current.content || ''} onChange={e => setCurrent({ ...current, content: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" placeholder="Hakkınızda paragraflar yazın..." />
+                     <RichTextEditor
+                        value={current.content || ''}
+                        onChange={html => setCurrent({ ...current, content: html })}
+                        placeholder="Hakkınızda paragraflar yazın..."
+                        minHeight="180px"
+                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

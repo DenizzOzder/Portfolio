@@ -3,6 +3,7 @@ import { collection, getDocs, doc, setDoc, deleteDoc, addDoc } from 'firebase/fi
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '@/lib/firebase';
 import type { ProjectCardProps } from '@/types';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 import toast from 'react-hot-toast';
 
 const AdminProjects: React.FC = () => {
@@ -160,8 +161,13 @@ const AdminProjects: React.FC = () => {
                   </div>
 
                   <div>
-                     <label className="block text-sm font-bold text-gray-300 mb-2">Detaylı İçerik (Markdown destekli)</label>
-                     <textarea rows={5} value={currentProject.content || ''} onChange={e => setCurrentProject({...currentProject, content: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-600" placeholder="## Proje Başlığı..." />
+                     <label className="block text-sm font-bold text-gray-300 mb-2">Detaylı İçerik (Proje Detay Sayfası)</label>
+                     <RichTextEditor
+                        value={currentProject.content || ''}
+                        onChange={html => setCurrentProject({...currentProject, content: html})}
+                        placeholder="Proje detaylarını yazın..."
+                        minHeight="220px"
+                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

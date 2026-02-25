@@ -60,19 +60,7 @@ const ProjectDetail = () => {
     );
   }
 
-  // To display HTML content (like markdown converted to HTML from backend) safely or raw string
-  // For this mock, we assume 'content' might contain simple markdown formatting.
-  // We'll write a simple regex to bolden subtitles if they start with ## or ###
-  const renderContent = (text?: string) => {
-    if (!text) return null;
-    return text.split('\n').map((line, i) => {
-      if (line.startsWith('### ')) return <h3 key={i} className="text-xl font-bold text-white mt-6 mb-2">{line.replace('### ', '')}</h3>;
-      if (line.startsWith('## ')) return <h2 key={i} className="text-2xl font-bold text-purple-400 mt-8 mb-4">{line.replace('## ', '')}</h2>;
-      if (line.startsWith('- ')) return <li key={i} className="ml-4 list-disc text-gray-300 mb-2">{line.replace('- ', '')}</li>;
-      if (line.trim() === '') return <br key={i} />;
-      return <p key={i} className="text-gray-300 text-lg leading-relaxed mb-4">{line}</p>;
-    });
-  };
+
 
 
   return (
@@ -170,7 +158,10 @@ const ProjectDetail = () => {
                   <p className="text-gray-300 text-xl leading-relaxed mb-8 italic">
                     {project.description}
                   </p>
-                  {renderContent(project.content)}
+                  <div
+                    className="text-gray-300 leading-relaxed [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-purple-400 [&_h2]:mt-8 [&_h2]:mb-4 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-white [&_h3]:mt-6 [&_h3]:mb-2 [&_p]:mb-4 [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-4 [&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:mb-4 [&_li]:mb-2 [&_strong]:font-bold [&_strong]:text-white [&_em]:italic [&_u]:underline"
+                    dangerouslySetInnerHTML={{ __html: project.content }}
+                  />
                 </>
               ) : (
                 <p className="text-gray-300 text-xl leading-relaxed">
@@ -191,15 +182,9 @@ const ProjectDetail = () => {
                <div className="mb-8">
                   <span className="block text-sm text-gray-400 mb-3">Kullanılan Teknolojiler</span>
                   <div className="flex flex-wrap gap-2">
-                    {project.techStack?.map(tech => (
-                      <div key={tech.name} className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10">
-                         <img 
-                           src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${tech.iconName}`} 
-                           className="w-4 h-4" 
-                           alt={tech.name}
-                           onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                         />
-                         <span className="text-sm font-medium text-gray-200">{tech.name}</span>
+                    {project.techStacks?.map((tech: string) => (
+                      <div key={tech} className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10">
+                         <span className="text-sm font-medium text-gray-200">{tech}</span>
                       </div>
                     ))}
                   </div>
