@@ -9,8 +9,12 @@
     "lint": "eslint src/**/*.tsx --no-error-on-unmatched-pattern"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@repo/config": "workspace:*",
+    "eslint": "^9.39.1",
     "react": "^18.2.0",
-    "typescript": "^5.3.0"
+    "typescript": "^5.3.0",
+    "typescript-eslint": "^8.48.0"
   },
   "peerDependencies": {
     "react": "^18.2.0"
