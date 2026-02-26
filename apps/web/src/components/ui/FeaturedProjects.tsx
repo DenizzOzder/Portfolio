@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProjectCard } from './ProjectCard';
 import { useProjects } from '../../hooks/useProjects';
@@ -7,10 +8,11 @@ import { useGlobalLoaderSync } from '../../hooks/useGlobalLoaderSync';
 import type { FilterType } from '@/types/ui';
 
 export const FeaturedProjects: React.FC = () => {
+  const { t } = useTranslation();
   const [filter, setFilter] = useState<FilterType>('all');
   const [showAll, setShowAll] = useState(false);
   const { data: projects = [], isLoading } = useProjects();
-  useGlobalLoaderSync(isLoading, 'Projeler Yükleniyor...');
+  useGlobalLoaderSync(isLoading, t('projects.loading'));
 
   const filteredAndSortedProjects = useMemo(() => {
     // 1. Filter
@@ -42,10 +44,10 @@ export const FeaturedProjects: React.FC = () => {
       <div className="max-w-[1400px] mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-4xl md:text-6xl font-black mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400 drop-shadow-2xl">
-            Öne Çıkan Projeler
+            {t('projects.title')}
           </h2>
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-8">
-            Geliştirdiğim yenilikçi çözümler, modern web uygulamaları ve mimari tasarımlardan bazı örnekler.
+            {t('projects.description')}
           </p>
 
           {/* Filters */}
@@ -58,7 +60,7 @@ export const FeaturedProjects: React.FC = () => {
                   : 'bg-white/5 text-gray-300 hover:bg-white/10'
               }`}
             >
-              Tümü
+              {t('projects.filterAll')}
             </button>
             <button
               onClick={() => { setFilter('in-progress'); setShowAll(false); }}
@@ -68,7 +70,7 @@ export const FeaturedProjects: React.FC = () => {
                   : 'bg-white/5 text-gray-300 hover:bg-white/10'
               }`}
             >
-              Devam Ediyor
+              {t('projects.filterInProgress')}
             </button>
             <button
               onClick={() => { setFilter('completed'); setShowAll(false); }}
@@ -78,7 +80,7 @@ export const FeaturedProjects: React.FC = () => {
                   : 'bg-white/5 text-gray-300 hover:bg-white/10'
               }`}
             >
-              Tamamlandı
+              {t('projects.filterCompleted')}
             </button>
           </div>
         </div>
@@ -125,7 +127,7 @@ export const FeaturedProjects: React.FC = () => {
                 onClick={() => setShowAll(!showAll)}
                 className="group relative inline-flex items-center justify-center px-8 py-3 font-semibold text-white transition-all duration-300 bg-white/5 border border-purple-500/30 rounded-full hover:bg-purple-600/20 hover:border-purple-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] overflow-hidden"
               >
-                <span className="relative z-10">{showAll ? 'Daha Az Göster' : 'Daha Fazla Göster'}</span>
+                <span className="relative z-10">{showAll ? t('projects.showLess') : t('projects.showMore')}</span>
                 <div className="absolute inset-0 h-full w-full scale-0 rounded-full transition-all duration-300 group-hover:scale-100 group-hover:bg-purple-500/10"></div>
               </button>
             </motion.div>

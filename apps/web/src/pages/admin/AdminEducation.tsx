@@ -13,6 +13,7 @@ const AdminEducation: React.FC = () => {
 
    // Local state for single badge editing
    const [badgeText, setBadgeText] = useState('');
+   const [badgeTextEn, setBadgeTextEn] = useState('');
    const [badgeColor, setBadgeColor] = useState('blue');
 
    useEffect(() => {
@@ -48,7 +49,7 @@ const AdminEducation: React.FC = () => {
             // Parse SortOrder as number
             sortOrder: Number(currentEdu.sortOrder) || 0,
             // Build the single badge if text is provided
-            badges: badgeText ? [{ text: badgeText, color: badgeColor }] : []
+            badges: badgeText ? [{ text: badgeText, text_en: badgeTextEn, color: badgeColor }] : []
          };
 
          if (currentEdu.id) {
@@ -63,6 +64,7 @@ const AdminEducation: React.FC = () => {
          setIsEditing(false);
          setCurrentEdu({});
          setBadgeText('');
+         setBadgeTextEn('');
          fetchEducations();
       } catch (error) {
          console.error(error);
@@ -95,14 +97,17 @@ const AdminEducation: React.FC = () => {
          // Fill badge states if exists
          if (edu.badges && edu.badges.length > 0) {
             setBadgeText(edu.badges[0].text);
+            setBadgeTextEn(edu.badges[0].text_en || '');
             setBadgeColor(edu.badges[0].color);
          } else {
             setBadgeText('');
+            setBadgeTextEn('');
             setBadgeColor('blue');
          }
       } else {
          setCurrentEdu({ emphasizeSchool: false, sortOrder: educations.length + 1 });
          setBadgeText('');
+         setBadgeTextEn('');
          setBadgeColor('blue');
       }
       setIsEditing(true);
@@ -134,27 +139,46 @@ const AdminEducation: React.FC = () => {
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                      <div>
-                        <label className="block text-sm font-bold text-gray-300 mb-2">Kurum / Okul Adı</label>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Kurum / Okul Adı (TR)</label>
                         <input required type="text" value={currentEdu.institution || ''} onChange={e => setCurrentEdu({...currentEdu, institution: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
                      </div>
                      <div>
-                        <label className="block text-sm font-bold text-gray-300 mb-2">Derece / Bölüm</label>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Kurum / Okul Adı (EN)</label>
+                        <input type="text" value={currentEdu.institution_en || ''} onChange={e => setCurrentEdu({...currentEdu, institution_en: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Derece / Bölüm (TR)</label>
                         <input required type="text" value={currentEdu.degree || ''} onChange={e => setCurrentEdu({...currentEdu, degree: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Derece / Bölüm (EN)</label>
+                        <input type="text" value={currentEdu.degree_en || ''} onChange={e => setCurrentEdu({...currentEdu, degree_en: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Tarih (TR)</label>
+                        <input type="text" placeholder="2018 - 2022" value={currentEdu.date || ''} onChange={e => setCurrentEdu({...currentEdu, date: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Tarih (EN)</label>
+                        <input type="text" placeholder="2018 - 2022" value={currentEdu.date_en || ''} onChange={e => setCurrentEdu({...currentEdu, date_en: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
                      </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                      <div>
-                        <label className="block text-sm font-bold text-gray-300 mb-2">Tarih</label>
-                        <input type="text" placeholder="2018 - 2022" value={currentEdu.date || ''} onChange={e => setCurrentEdu({...currentEdu, date: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
-                     </div>
-                     <div>
                         <label className="block text-sm font-bold text-gray-300 mb-2">Not / Ortalama (Ops.)</label>
                         <input type="text" placeholder="Ortalama: 3.43" value={currentEdu.grade || ''} onChange={e => setCurrentEdu({...currentEdu, grade: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
                      </div>
                      <div>
-                        <label className="block text-sm font-bold text-gray-300 mb-2">Durum (Ops.)</label>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Durum (TR) (Ops.)</label>
                         <input type="text" placeholder="%100 Burslu" value={currentEdu.status || ''} onChange={e => setCurrentEdu({...currentEdu, status: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Durum (EN) (Ops.)</label>
+                        <input type="text" placeholder="100% Scholarship" value={currentEdu.status_en || ''} onChange={e => setCurrentEdu({...currentEdu, status_en: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
                      </div>
                   </div>
 
@@ -164,9 +188,15 @@ const AdminEducation: React.FC = () => {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end bg-black/20 p-4 rounded-xl border border-white/5">
-                     <div className="col-span-2">
-                        <label className="block text-sm font-bold text-gray-300 mb-2">Vurgu Rozeti Sloganı (Opsiyonel)</label>
-                        <input type="text" placeholder="Tamamlandı, Öğrenime Ara Verdim vb." value={badgeText} onChange={e => setBadgeText(e.target.value)} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     <div className="col-span-2 space-y-3">
+                        <div>
+                           <label className="block text-sm font-bold text-gray-300 mb-2">Vurgu Rozeti Sloganı (TR)</label>
+                           <input type="text" placeholder="Tamamlandı, Öğrenime Ara Verdim vb." value={badgeText} onChange={e => setBadgeText(e.target.value)} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                        </div>
+                        <div>
+                           <label className="block text-sm font-bold text-gray-300 mb-2">Vurgu Rozeti Sloganı (EN)</label>
+                           <input type="text" placeholder="Completed, Break taken, etc." value={badgeTextEn} onChange={e => setBadgeTextEn(e.target.value)} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                        </div>
                      </div>
                      <div>
                         <label className="block text-sm font-bold text-gray-300 mb-2">Rozet Rengi</label>

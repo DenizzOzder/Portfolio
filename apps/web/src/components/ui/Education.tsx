@@ -1,11 +1,14 @@
 import { useEducationData } from '@/hooks/useEducation';
 import { useGlobalLoaderSync } from '@/hooks/useGlobalLoaderSync';
+import { useTranslation } from 'react-i18next';
 import { Certificates } from './Certificates';
 import Hyperspeed, { hyperspeedPresets } from '../effects/Hyperspeed';
 
 export const Education = () => {
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
   const { data: educationData = [], isLoading } = useEducationData();
-  useGlobalLoaderSync(isLoading, 'Eğitim Bilgileri Yükleniyor...');
+  useGlobalLoaderSync(isLoading, t('education.loading'));
 
   return (
     <section id="education" className="relative w-full py-24 md:py-32 overflow-hidden bg-[#050010] flex flex-col items-center justify-center z-10 text-white">
@@ -23,13 +26,13 @@ export const Education = () => {
         <div className="text-center mb-16 md:mb-24">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-4">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-                  Eğitim
+                  {t('education.title')}
               </span>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-purple-400 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-                  {" "}Yolculuğum
+                  {t('education.subtitle')}
               </span>
           </h2>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">Akademik geçmişim ve yazılım dünyasındaki gelişim haritam.</p>
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto">{t('education.description')}</p>
         </div>
 
         {/* Roadmap Container */}
@@ -40,6 +43,10 @@ export const Education = () => {
           <div className="flex flex-col gap-16 relative z-10">
             {educationData.map((edu, index) => {
               const isEven = index % 2 === 0;
+
+              const displayInstitution = isEn && edu.institution_en ? edu.institution_en : edu.institution;
+              const displayDegree = isEn && edu.degree_en ? edu.degree_en : edu.degree;
+              const displayDate = isEn && edu.date_en ? edu.date_en : edu.date;
 
               return (
                 <div key={edu.id} className={`relative flex flex-col md:flex-row items-center ${isEven ? 'md:justify-start' : 'md:justify-end'} w-full pl-20 md:pl-0 group`}>
@@ -67,7 +74,7 @@ export const Education = () => {
 
                             return (
                               <div key={bIdx} className={`inline-flex items-center justify-center h-8 px-4 text-xs font-black tracking-widest uppercase rounded-full shadow-[0_4px_10px_rgba(0,0,0,0.5)] border ${colorClasses}`}>
-                                {badge.text}
+                                {isEn && badge.text_en ? badge.text_en : badge.text}
                               </div>
                             );
                           })}
@@ -85,7 +92,7 @@ export const Education = () => {
                           
                           {/* Left Side: Date */}
                           <span className="inline-flex items-center justify-center h-8 px-3 md:px-4 text-xs md:text-sm font-bold tracking-wider text-purple-200 bg-purple-900/40 rounded-lg border border-purple-500/30 shadow-inner whitespace-nowrap shrink-0">
-                            {edu.date}
+                            {displayDate}
                           </span>
                           
                           {/* Right Side: Grade */}
@@ -102,19 +109,19 @@ export const Education = () => {
                         {edu.emphasizeSchool ? (
                            <>
                              <h3 className="text-2xl md:text-3xl font-black text-white mb-2 leading-tight drop-shadow-md">
-                               {edu.institution}
+                               {displayInstitution}
                              </h3>
                              <h4 className="text-lg md:text-xl font-semibold text-purple-300/80 mb-6 tracking-wide drop-shadow-sm">
-                               {edu.degree}
+                               {displayDegree}
                              </h4>
                            </>
                         ) : (
                            <>
                              <h3 className="text-2xl md:text-3xl font-black text-white mb-2 leading-tight drop-shadow-md">
-                               {edu.degree}
+                               {displayDegree}
                              </h3>
                              <h4 className="text-lg md:text-xl font-semibold text-purple-300/80 mb-6 tracking-wide drop-shadow-sm">
-                               {edu.institution}
+                               {displayInstitution}
                              </h4>
                            </>
                         )}

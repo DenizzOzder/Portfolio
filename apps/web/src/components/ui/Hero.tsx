@@ -1,19 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import LightPillar from '../effects/LightPillar';
 import avatarImg from '../../assets/avatar.png';
-import type { HeroContent } from '@/types/hero';
-
-const mockHeroData: HeroContent = {
-  avatars: [
-    avatarImg,
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=b6e3f4' // Mock 2nd avatar
-  ],
-  title: 'Full Stack',
-  subtitle: 'Developer',
-  description: 'Web uygulamaları ve dijital deneyimler geliştiriyorum'
-};
-
 const Hero = () => {
+  const { t } = useTranslation();
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
     const element = document.getElementById(targetId);
@@ -60,16 +50,16 @@ const Hero = () => {
 
         <h1 className="text-6xl md:text-8xl font-black tracking-tight mb-6 drop-shadow-2xl">
             <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-200 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-                {mockHeroData.title}
+                {t('hero.title')}
             </span>
             <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-400 to-purple-400 animate-gradient drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-                {mockHeroData.subtitle}
+                {t('hero.subtitle')}
             </span>
         </h1>
 
         <p className="text-xl md:text-2xl text-gray-200 mb-12 max-w-2xl font-medium drop-shadow-md">
-            {mockHeroData.description}
+            {t('hero.description')}
         </p>
 
         <div className="flex flex-col items-center gap-6">
@@ -79,14 +69,14 @@ const Hero = () => {
                   onClick={(e) => handleScrollTo(e, 'projects')}
                   className="px-8 py-4 w-full md:w-auto bg-white hover:bg-gray-100 text-purple-900 rounded-2xl font-bold shadow-xl shadow-white/10 transition-all hover:scale-105 inline-flex items-center justify-center cursor-pointer"
                 >
-                    Projelerim
+                    {t('nav.projects')}
                 </a>
                 <a 
                   href="#about" 
                   onClick={(e) => handleScrollTo(e, 'about')}
                   className="px-8 py-4 w-full md:w-auto bg-black/40 backdrop-blur-md border border-gray-400 hover:border-white text-white rounded-2xl font-bold transition-all hover:bg-black/60 inline-flex items-center justify-center cursor-pointer"
                 >
-                    Hakkımda
+                    {t('nav.about')}
                 </a>
             </div>
         </div>

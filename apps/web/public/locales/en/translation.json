@@ -1,0 +1,82 @@
+{
+  "translation": {
+    "nav": {
+      "projects": "Projects",
+      "home": "Home",
+      "about": "About",
+      "education": "Education",
+      "career": "Career",
+      "contact": "Contact",
+      "admin": "Admin"
+    },
+    "hero": {
+      "title": "Full Stack",
+      "subtitle": "Developer",
+      "description": "I develop web applications and digital experiences.",
+      "ctaProjects": "View My Projects",
+      "ctaAbout": "About Me",
+      "ctaContact": "Contact Me"
+    },
+    "tech": {
+      "title": "Tech Stack",
+      "subtitle": "Modern tools, languages, and architectures I trust and have experience with."
+    },
+    "about": {
+      "title": "About Me",
+      "description": "As a Backend-focused Full Stack developer, I work on <1>layered architectures</1>; and build scalable and maintainable web applications using <3>React, TypeScript, Firebase</3> and <5>MongoDB</5> like technologies. I focus on writing clean code, maintaining architectural discipline, and producing production-quality solutions.",
+      "moreInfo": "More about me"
+    },
+    "projects": {
+      "title": "Featured Projects",
+      "subtitle": "Some of my recent work",
+      "description": "Some examples of the innovative solutions, modern web applications, and architectural designs I have developed.",
+      "viewAll": "View all projects",
+      "filterAll": "All",
+      "filterInProgress": "In Progress",
+      "filterCompleted": "Completed",
+      "loading": "Loading Projects...",
+      "showLess": "Show Less",
+      "showMore": "Show More"
+    },
+    "education": {
+      "title": "Education",
+      "subtitle": " Journey",
+      "description": "My academic background and development roadmap in the software world.",
+      "loading": "Loading Education Info..."
+    },
+    "career": {
+      "title": "Experience",
+      "subtitle": " & Career",
+      "description": "Milestones in my professional journey and the roles I have taken on."
+    },
+    "contact": {
+      "title": "Get in Touch",
+      "subtitle": "Have a project in mind? Let's work together.",
+      "name": "Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "mail@example.com",
+      "message": "Message",
+      "messagePlaceholder": "Your message...",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "successMessage": "Your message has been sent successfully! I will get back to you as soon as possible.",
+      "errors": {
+        "validation": "Please check the errors in the form.",
+        "missingKey": "Contact form API key is missing. Please contact the site administrator.",
+        "serverError": "An error occurred, please try again later.",
+        "unexpected": "An unexpected error occurred. Please try again."
+      }
+    },
+    "certificates": {
+      "title": "Certificates & Training Programs",
+      "description": "Professional certification programs I have completed and am currently continuing.",
+      "showLess": "Show Less",
+      "showMore": "Show More"
+    },
+    "footer": {
+      "rights": "All rights reserved.",
+      "ariaTop": "Scroll to top"
+    }
+  }
+}

@@ -111,17 +111,33 @@ const AdminAbout: React.FC = () => {
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
                <h3 className="text-xl font-bold text-white mb-6">{current.id ? 'Bölümü Düzenle' : 'Yeni Bölüm'}</h3>
                <form onSubmit={handleSave} className="space-y-4">
-                  <div>
-                     <label className="block text-sm font-bold text-gray-300 mb-2">Başlık (Opsiyonel)</label>
-                     <input type="text" placeholder="Ben Kimim?" value={current.title || ''} onChange={e => setCurrent({ ...current, title: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Başlık (TR) (Opsiyonel)</label>
+                        <input type="text" placeholder="Ben Kimim?" value={current.title || ''} onChange={e => setCurrent({ ...current, title: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Başlık (EN) (Opsiyonel)</label>
+                        <input type="text" placeholder="Who Am I?" value={current.title_en || ''} onChange={e => setCurrent({ ...current, title_en: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
                   </div>
 
                   <div>
-                     <label className="block text-sm font-bold text-gray-300 mb-2">İçerik</label>
+                     <label className="block text-sm font-bold text-gray-300 mb-2">İçerik (TR)</label>
                      <RichTextEditor
                         value={current.content || ''}
                         onChange={html => setCurrent({ ...current, content: html })}
-                        placeholder="Hakkınızda paragraflar yazın..."
+                        placeholder="Hakkınızda paragraflar yazın (TR)..."
+                        minHeight="180px"
+                     />
+                  </div>
+
+                  <div>
+                     <label className="block text-sm font-bold text-gray-300 mb-2">İçerik (EN)</label>
+                     <RichTextEditor
+                        value={current.content_en || ''}
+                        onChange={html => setCurrent({ ...current, content_en: html })}
+                        placeholder="Hakkınızda paragraflar yazın (EN)..."
                         minHeight="180px"
                      />
                   </div>

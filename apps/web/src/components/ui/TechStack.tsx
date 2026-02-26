@@ -1,4 +1,5 @@
 import { BlackHoleBackground } from '../effects/BlackHoleBackground';
+import { useTranslation } from 'react-i18next';
 
 // Organized Tech Data for Inverse Pyramid Layout with CDN/Devicon mapping
 const techGroups = [
@@ -45,6 +46,7 @@ const techGroups = [
 ];
 
 export const TechStack = () => {
+  const { t } = useTranslation();
   return (
     <section 
       id="techstack" 
@@ -55,10 +57,10 @@ export const TechStack = () => {
       <div className="relative z-10 w-full max-w-6xl flex flex-col items-center">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-black mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400 drop-shadow-2xl">
-            Teknoloji Yığını
+            {t('tech.title')}
           </h2>
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
-            Geliştirme sürecinde güvendiğim ve deneyim sahibi olduğum modern araçlar, diller ve mimariler.
+            {t('tech.subtitle')}
           </p>
         </div>
 

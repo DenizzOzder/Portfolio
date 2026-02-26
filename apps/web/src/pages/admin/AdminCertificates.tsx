@@ -113,18 +113,34 @@ const AdminCertificates: React.FC = () => {
                <form onSubmit={handleSave} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                      <div>
-                        <label className="block text-sm font-bold text-gray-300 mb-2">Sertifika Başlığı</label>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Sertifika Başlığı (TR)</label>
                         <input required type="text" value={current.title || ''} onChange={e => setCurrent({ ...current, title: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
                      </div>
                      <div>
-                        <label className="block text-sm font-bold text-gray-300 mb-2">Veren Kurum</label>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Sertifika Başlığı (EN)</label>
+                        <input type="text" value={current.title_en || ''} onChange={e => setCurrent({ ...current, title_en: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Veren Kurum (TR)</label>
                         <input required type="text" value={current.issuer || ''} onChange={e => setCurrent({ ...current, issuer: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Veren Kurum (EN)</label>
+                        <input type="text" value={current.issuer_en || ''} onChange={e => setCurrent({ ...current, issuer_en: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
                      </div>
                   </div>
 
-                  <div>
-                     <label className="block text-sm font-bold text-gray-300 mb-2">Kısa Açıklama (Hover'da Görünecek)</label>
-                     <textarea rows={3} value={current.hoverDescription || ''} onChange={e => setCurrent({ ...current, hoverDescription: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Kısa Açıklama (TR)</label>
+                        <textarea rows={3} value={current.hoverDescription || ''} onChange={e => setCurrent({ ...current, hoverDescription: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Kısa Açıklama (EN)</label>
+                        <textarea rows={3} value={current.hoverDescription_en || ''} onChange={e => setCurrent({ ...current, hoverDescription_en: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
                   </div>
 
                   <div>

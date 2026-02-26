@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import type { ProjectCardProps } from '../../types';
 import { TechBadge } from './TechBadge';
 
@@ -13,9 +14,19 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   role,
   actionLabel,
   id,
+  title_en,
+  description_en,
+  role_en,
 }) => {
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+
   const isCompleted = status === 'completed';
   const targetUrl = id && isCompleted ? `/project/${id}` : undefined;
+
+  const displayTitle = isEn && title_en ? title_en : title;
+  const displayDescription = isEn && description_en ? description_en : description;
+  const displayRole = isEn && role_en ? role_en : role;
 
   // Render the inner content of the card safely
   const CardContent = (
@@ -39,7 +50,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           <div className={`absolute inset-0 bg-black/80 opacity-0 ${isCompleted ? 'group-hover:opacity-100' : ''} transition-opacity duration-500 z-10 flex items-center justify-center p-6`}>
              {/* Description text sliding up */}
              <p className={`text-gray-200 text-sm md:text-base text-center translate-y-8 opacity-0 ${isCompleted ? 'group-hover:translate-y-0 group-hover:opacity-100' : ''} transition-all duration-500 delay-100 line-clamp-6`}>
-                {description}
+                {displayDescription}
              </p>
           </div>
         </div>
@@ -47,13 +58,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         {/* Content Container - 25% height */}
         <div className="flex flex-col items-center justify-center h-[25%] px-4 py-2 z-20 bg-gradient-to-t from-black/80 to-black/40">
           <h3 className="text-base md:text-lg font-bold text-white text-center truncate w-full">
-            {title}
+            {displayTitle}
           </h3>
           
           {/* Role Indicator - Differentiated from the title */}
-          {role && (
+          {displayRole && (
             <span className="text-[10px] md:text-xs font-medium text-purple-300 tracking-wide uppercase mt-0.5">
-              {role}
+              {displayRole}
             </span>
           )}
 
@@ -71,7 +82,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                  <span 
                    className="inline-flex items-center text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors bg-black/60 px-3 py-1 rounded-full backdrop-blur-sm border border-purple-500/30"
                  >
-                   {actionLabel || 'Daha Fazla Bilgi \u2192'}
+                   {actionLabel || (isEn ? 'More Info \u2192' : 'Daha Fazla Bilgi \u2192')}
                  </span>
                ) : (
                  <a 
@@ -81,7 +92,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                    onClick={(e) => e.stopPropagation()} // Prevent card click when clicking external link
                    className="inline-flex items-center text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors bg-black/60 px-3 py-1 rounded-full backdrop-blur-sm border border-purple-500/30"
                  >
-                   {actionLabel || 'Projeyi İncele \u2192'}
+                   {actionLabel || (isEn ? 'View Project \u2192' : 'Projeyi İncele \u2192')}
                  </a>
                )}
             </div>
@@ -96,7 +107,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             ? 'bg-emerald-500/30 text-emerald-300 border-emerald-500/50' 
             : 'bg-amber-500/30 text-amber-300 border-amber-500/50'
         }`}>
-          {status === 'completed' ? 'Tamamlandı' : 'Devam Ediyor'}
+          {status === 'completed' ? (isEn ? 'Completed' : 'Tamamlandı') : (isEn ? 'In Progress' : 'Devam Ediyor')}
         </div>
       )}
     </>

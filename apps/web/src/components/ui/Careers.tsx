@@ -1,34 +1,14 @@
 import Particles from '../effects/Particles';
-
+import { useTranslation } from 'react-i18next';
 import { TechBadge } from './TechBadge';
-
-const experiences = [
-  {
-    id: 1,
-    title: 'Backend Developer',
-    company: 'Bimakas',
-    date: '2026 – Present',
-    description: `TypeScript tabanlı Layered Architecture (Katmanlı Mimari: GraphQL Resolvers → Services → Repositories → Firebase) yapısında görev alıyor, sistemin geneline yeni feature'lar geliştiriyor ve servislerin optimizasyonunu sağlıyorum. Firebase üzerine kurgulanmış, güçlü ve ölçeklenebilir altyapıda modüller tasarlayarak süreçleri hızlandırıyorum. Görev aldığım ilk günden itibaren sorumluluklarımı production-ready standartlarda teslim ediyor; TypeScript ekosistemine hızlı adaptasyonumla aktif geliştirme döngüsüne değer katıyorum.`,
-    techStacks: [
-      'Katmanlı Mimari (GraphQL Resolvers → Services → Repositories → Firebase)',
-      'TypeScript',
-      'Firebase',
-      'GraphQL'
-    ]
-  },
-  {
-    id: 2,
-    title: 'System Administrator',
-    company: '',
-    date: '2022 – Present',
-    description: `Sistem operasyonlarının devamlılığını sağlarken yazılım ekibiyle dirsek teması halinde çalışıyor, bug triage ve haftalık teknik raporlama süreçlerini uçtan uca yönetiyorum. Kritik sistemsel düzeydeki hataları henüz kullanıcıya yansımadan tespit ederek geliştirme ekiplerine iletiyor ve çözüm adımlarını yakından takip ediyorum. Hem teknik analiz hem de kriz anlarındaki problem çözme süreçlerinde inisiyatif alarak sistem kararlılığını artırıyorum.`,
-    techStacks: [
-      'HTML/CSS'
-    ]
-  }
-];
+import { useCareerData } from '@/hooks/useCareer';
+import { useGlobalLoaderSync } from '@/hooks/useGlobalLoaderSync';
 
 export const Careers = () => {
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+  const { data: experiences = [], isLoading } = useCareerData();
+  useGlobalLoaderSync(isLoading, t('career.loading') || 'Yükleniyor...');
   return (
     <section id="careers" className="relative w-full min-h-screen py-12 md:py-20 overflow-hidden bg-transparent flex flex-col items-center justify-center z-10 w-full">
       
@@ -51,13 +31,13 @@ export const Careers = () => {
         <div className="text-center mb-8 md:mb-16">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-4">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-                  Deneyim
+                  {t('career.title')}
               </span>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-400 to-purple-400 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-                  {" "}& Kariyer
+                  {t('career.subtitle')}
               </span>
           </h2>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">Profesyonel yolculuğumdaki dönüm noktaları ve üstlendiğim görevlerim.</p>
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto">{t('career.description')}</p>
         </div>
 
         {/* Timeline Container */}
@@ -73,8 +53,12 @@ export const Careers = () => {
             {experiences.map((exp, index) => {
               const isEven = index % 2 === 0;
 
+              const displayRole = isEn && exp.role_en ? exp.role_en : exp.role;
+              const displayCompany = isEn && exp.companyName_en ? exp.companyName_en : exp.companyName;
+              const displayDesc = isEn && exp.description_en ? exp.description_en : exp.description;
+
               return (
-                <div key={exp.id} className={`relative flex flex-col md:flex-row items-center ${isEven ? 'md:justify-start' : 'md:justify-end'} w-full pl-16 md:pl-0`}>
+                <div key={exp.id || index} className={`relative flex flex-col md:flex-row items-center ${isEven ? 'md:justify-start' : 'md:justify-end'} w-full pl-16 md:pl-0`}>
                   
                   {/* Timeline Dot (Mobile & Desktop) */}
                   <div className={`absolute md:left-1/2 transform -translate-x-1/2 w-5 h-5 rounded-full bg-pink-500 shadow-[0_0_15px_rgba(236,72,153,0.8)] z-20 border-4 border-[#050010] ${isEven ? 'left-6' : 'left-6'} md:block`} />
@@ -88,26 +72,26 @@ export const Careers = () => {
 
                       <div className="mb-4 text-center">
                         <span className="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest text-pink-300 uppercase bg-pink-500/10 rounded-full border border-pink-500/20 shadow-[0_0_10px_rgba(236,72,153,0.1)]">
-                          {exp.date}
+                          {exp.years}
                         </span>
                         <h3 className="text-2xl font-black text-white mb-2 tracking-tight">
-                          {exp.title}
+                          {displayRole}
                         </h3>
-                        {exp.company && (
+                        {displayCompany && (
                           <h4 className="text-xl font-semibold text-purple-300">
-                            {exp.company}
+                            {displayCompany}
                           </h4>
                         )}
                       </div>
 
                       <p className="text-gray-300 mb-8 leading-relaxed text-center font-medium">
-                        {exp.description}
+                        {displayDesc}
                       </p>
 
                       <div className="flex flex-col items-center gap-4 mt-8">
                         {/* Tech Stack Icons & Badges */}
                         <div className="flex flex-wrap gap-4 justify-center">
-                          {exp.techStacks.map((t, idx) => (
+                          {(exp.techStacks || []).map((t: string, idx: number) => (
                             <TechBadge key={idx} tech={t} />
                           ))}
                         </div>

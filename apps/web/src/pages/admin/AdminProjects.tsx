@@ -146,26 +146,47 @@ const AdminProjects: React.FC = () => {
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                      <div>
-                        <label className="block text-sm font-bold text-gray-300 mb-2">Proje Adı</label>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Proje Adı (TR)</label>
                         <input required type="text" value={currentProject.title || ''} onChange={e => setCurrentProject({...currentProject, title: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
                      </div>
                      <div>
-                        <label className="block text-sm font-bold text-gray-300 mb-2">Rolünüz (Örn: Full Stack)</label>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Proje Adı (EN)</label>
+                        <input type="text" value={currentProject.title_en || ''} onChange={e => setCurrentProject({...currentProject, title_en: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Rolünüz (TR)</label>
                         <input type="text" value={currentProject.role || ''} onChange={e => setCurrentProject({...currentProject, role: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Rolünüz (EN)</label>
+                        <input type="text" value={currentProject.role_en || ''} onChange={e => setCurrentProject({...currentProject, role_en: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
                      </div>
                   </div>
 
                   <div>
-                     <label className="block text-sm font-bold text-gray-300 mb-2">Kısa Açıklama (Kart Gösterimi için)</label>
+                     <label className="block text-sm font-bold text-gray-300 mb-2">Kısa Açıklama (TR)</label>
                      <textarea required rows={2} value={currentProject.description || ''} onChange={e => setCurrentProject({...currentProject, description: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                  </div>
+                  <div>
+                     <label className="block text-sm font-bold text-gray-300 mb-2">Kısa Açıklama (EN)</label>
+                     <textarea rows={2} value={currentProject.description_en || ''} onChange={e => setCurrentProject({...currentProject, description_en: e.target.value})} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
                   </div>
 
                   <div>
-                     <label className="block text-sm font-bold text-gray-300 mb-2">Detaylı İçerik (Proje Detay Sayfası)</label>
+                     <label className="block text-sm font-bold text-gray-300 mb-2">Detaylı İçerik (TR)</label>
                      <RichTextEditor
                         value={currentProject.content || ''}
                         onChange={html => setCurrentProject({...currentProject, content: html})}
-                        placeholder="Proje detaylarını yazın..."
+                        placeholder="Proje detaylarını yazın (TR)..."
+                        minHeight="220px"
+                     />
+                  </div>
+                  <div>
+                     <label className="block text-sm font-bold text-gray-300 mb-2">Detaylı İçerik (EN)</label>
+                     <RichTextEditor
+                        value={currentProject.content_en || ''}
+                        onChange={html => setCurrentProject({...currentProject, content_en: html})}
+                        placeholder="Proje detaylarını yazın (EN)..."
                         minHeight="220px"
                      />
                   </div>

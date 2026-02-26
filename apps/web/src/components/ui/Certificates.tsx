@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { ProjectCard } from './ProjectCard';
 import { getCertificates } from '../../services/certificateService';
 import type { ProjectCardProps } from '../../types';
 
 export const Certificates: React.FC = () => {
+  const { t } = useTranslation();
   const [certificates, setCertificates] = useState<ProjectCardProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
@@ -79,10 +81,10 @@ export const Certificates: React.FC = () => {
     <div className="w-full pb-16 mt-20 md:mt-32 relative z-10">
       <div className="text-center mb-12">
         <h3 className="text-3xl md:text-5xl font-black mb-4 pb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500 drop-shadow-lg leading-tight">
-          Sertifikalar & Eğitim Programları
+          {t('certificates.title')}
         </h3>
         <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto px-4">
-          Kariyer yolculuğumda tamamladığım ve şu an devam ettiğim profesyonel sertifikasyon programları.
+          {t('certificates.description')}
         </p>
       </div>
 
@@ -195,7 +197,7 @@ export const Certificates: React.FC = () => {
               onClick={() => setShowAll(!showAll)}
               className="group relative inline-flex items-center justify-center px-8 py-3 font-semibold text-white transition-all duration-300 bg-white/5 border border-pink-500/30 rounded-full hover:bg-pink-600/20 hover:border-pink-500 hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] overflow-hidden"
             >
-              <span className="relative z-10">{showAll ? 'Daha Az Göster' : 'Daha Fazla Göster'}</span>
+              <span className="relative z-10">{showAll ? t('certificates.showLess') : t('certificates.showMore')}</span>
               <div className="absolute inset-0 h-full w-full scale-0 rounded-full transition-all duration-300 group-hover:scale-100 group-hover:bg-pink-500/10"></div>
             </button>
           </motion.div>

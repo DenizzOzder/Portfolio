@@ -1,0 +1,82 @@
+{
+  "translation": {
+    "nav": {
+      "projects": "Projelerim",
+      "home": "Ana Sayfa",
+      "about": "Hakkımda",
+      "education": "Eğitim",
+      "career": "Kariyer",
+      "contact": "İletişim",
+      "admin": "Admin"
+    },
+    "hero": {
+      "title": "Full Stack",
+      "subtitle": "Developer",
+      "description": "Web uygulamaları ve dijital deneyimler geliştiriyorum.",
+      "ctaProjects": "Projelerimi Gör",
+      "ctaAbout": "Hakkımda",
+      "ctaContact": "Benimle İletişime Geç"
+    },
+    "tech": {
+      "title": "Teknoloji Yığını",
+      "subtitle": "Geliştirme sürecinde güvendiğim ve deneyim sahibi olduğum modern araçlar, diller ve mimariler."
+    },
+    "about": {
+      "title": "Hakkımda",
+      "description": "Backend odaklı bir Full Stack geliştirici olarak, <1>katmanlı mimariler</1> üzerinde çalışıyor; <3>React, TypeScript, Firebase</3> ve <5>MongoDB</5> gibi teknolojiler kullanarak ölçeklenebilir ve sürdürülebilir web uygulamaları geliştiriyorum. Temiz kod, mimari disiplin ve production kalitesinde çözümler üretmeye odaklanıyorum.",
+      "moreInfo": "Daha Fazla"
+    },
+    "projects": {
+      "title": "Öne Çıkan Projelerim",
+      "subtitle": "Son zamanlarda yaptığım bazı çalışmalar",
+      "description": "Geliştirdiğim yenilikçi çözümler, modern web uygulamaları ve mimari tasarımlardan bazı örnekler.",
+      "viewAll": "Tüm projeleri gör",
+      "filterAll": "Tümü",
+      "filterInProgress": "Devam Ediyor",
+      "filterCompleted": "Tamamlandı",
+      "loading": "Projeler Yükleniyor...",
+      "showLess": "Daha Az Göster",
+      "showMore": "Daha Fazla Göster"
+    },
+    "education": {
+      "title": "Eğitim",
+      "subtitle": " Yolculuğum",
+      "description": "Akademik geçmişim ve yazılım dünyasındaki gelişim haritam.",
+      "loading": "Eğitim Bilgileri Yükleniyor..."
+    },
+    "career": {
+      "title": "Deneyim",
+      "subtitle": " & Kariyer",
+      "description": "Profesyonel yolculuğumdaki dönüm noktaları ve üstlendiğim görevlerim."
+    },
+    "contact": {
+      "title": "İletişime Geçin",
+      "subtitle": "Projeniz mi var? Beraber çalışalım.",
+      "name": "İsim",
+      "namePlaceholder": "Adınız Soyadınız",
+      "email": "E-Posta",
+      "emailPlaceholder": "mail@ornek.com",
+      "message": "Mesaj",
+      "messagePlaceholder": "Mesajınız...",
+      "send": "Gönder",
+      "sending": "Gönderiliyor...",
+      "successMessage": "Mesajınız başarıyla gönderildi! En kısa sürede dönüş yapacağım.",
+      "errors": {
+        "validation": "Lütfen formdaki hataları kontrol ediniz.",
+        "missingKey": "İletişim formu API anahtarı eksik. Lütfen site yöneticisiyle iletişime geçin.",
+        "serverError": "Bir hata oluştu, lütfen daha sonra tekrar deneyin.",
+        "unexpected": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin."
+      }
+    },
+    "certificates": {
+      "title": "Sertifikalar & Eğitim Programları",
+      "description": "Kariyer yolculuğumda tamamladığım ve şu an devam ettiğim profesyonel sertifikasyon programları.",
+      "showLess": "Daha Az Göster",
+      "showMore": "Daha Fazla Göster"
+    },
+    "footer": {
+      "rights": "Bütün hakları saklıdır.",
+      "ariaTop": "Yukarı Çık"
+    }
+  }
+}

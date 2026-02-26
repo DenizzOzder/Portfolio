@@ -102,12 +102,20 @@ const AdminCareer: React.FC = () => {
                <form onSubmit={handleSave} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                      <div>
-                        <label className="block text-sm font-bold text-gray-300 mb-2">Pozisyon / Rol</label>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Pozisyon / Rol (TR)</label>
                         <input required type="text" value={current.role || ''} onChange={e => setCurrent({ ...current, role: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
                      </div>
                      <div>
-                        <label className="block text-sm font-bold text-gray-300 mb-2">Şirket Adı</label>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Pozisyon / Rol (EN)</label>
+                        <input type="text" value={current.role_en || ''} onChange={e => setCurrent({ ...current, role_en: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Şirket Adı (TR)</label>
                         <input type="text" value={current.companyName || ''} onChange={e => setCurrent({ ...current, companyName: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                     </div>
+                     <div>
+                        <label className="block text-sm font-bold text-gray-300 mb-2">Şirket Adı (EN)</label>
+                        <input type="text" value={current.companyName_en || ''} onChange={e => setCurrent({ ...current, companyName_en: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
                      </div>
                   </div>
 
@@ -117,8 +125,12 @@ const AdminCareer: React.FC = () => {
                   </div>
 
                   <div>
-                     <label className="block text-sm font-bold text-gray-300 mb-2">Açıklama</label>
+                     <label className="block text-sm font-bold text-gray-300 mb-2">Açıklama (TR)</label>
                      <textarea required rows={4} value={current.description || ''} onChange={e => setCurrent({ ...current, description: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
+                  </div>
+                  <div>
+                     <label className="block text-sm font-bold text-gray-300 mb-2">Açıklama (EN)</label>
+                     <textarea rows={4} value={current.description_en || ''} onChange={e => setCurrent({ ...current, description_en: e.target.value })} className="w-full px-4 py-2 rounded-xl bg-black/40 border border-white/10 text-white" />
                   </div>
 
                   <div>
