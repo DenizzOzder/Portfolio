@@ -3,15 +3,17 @@ import { useState, useEffect, useMemo } from 'react';
 import { useProjects } from '@/hooks/useProjects';
 import { useGlobalLoaderSync } from '@/hooks/useGlobalLoaderSync';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const ProjectDetail = () => {
+import { useTranslation } from 'react-i18next';const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+
   const { data: projects = [], isLoading } = useProjects();
-  useGlobalLoaderSync(isLoading, 'Proje Detayları Yükleniyor...');
+  useGlobalLoaderSync(isLoading, isEn ? 'Loading Project Details...' : 'Proje Detayları Yükleniyor...');
 
   // Compute derived state using cached data
   const { project, completedProjects } = useMemo(() => {
@@ -55,11 +57,18 @@ const ProjectDetail = () => {
   if (!project) {
     return (
       <div className="w-full min-h-screen bg-[#050010] flex flex-col items-center justify-center text-white gap-4">
-        <h1 className="text-4xl font-bold">Proje Bulunamadı</h1>
-        <button onClick={() => navigate('/projects')} className="text-purple-400 hover:text-purple-300 underline">Aramaya dön</button>
+        <h1 className="text-4xl font-bold">{isEn ? 'Project Not Found' : 'Proje Bulunamadı'}</h1>
+        <button onClick={() => navigate('/projects')} className="text-purple-400 hover:text-purple-300 underline">
+          {isEn ? 'Return to search' : 'Aramaya dön'}
+        </button>
       </div>
     );
   }
+
+  const displayTitle = isEn && project.title_en ? project.title_en : project.title;
+  const displayRole = isEn && project.role_en ? project.role_en : project.role;
+  const displayDescription = isEn && project.description_en ? project.description_en : project.description;
+  const displayContent = isEn && project.content_en ? project.content_en : project.content;
 
 
 
@@ -80,17 +89,17 @@ const ProjectDetail = () => {
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover:-translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
           </svg>
-          Hızlı Geri Dön
+          {isEn ? 'Quick Go Back' : 'Hızlı Geri Dön'}
         </button>
 
         {/* Header Section */}
         <div className="flex flex-col mb-12">
            <h1 className="text-5xl md:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-4 tracking-tight drop-shadow-lg">
-             {project.title}
+             {displayTitle}
            </h1>
-           {project.role && (
+           {displayRole && (
              <div className="text-xl md:text-2xl font-medium text-purple-400 tracking-wide uppercase">
-               {project.role}
+               {displayRole}
              </div>
            )}
         </div>
@@ -108,7 +117,7 @@ const ProjectDetail = () => {
                   <motion.img
                     key={currentImageIndex}
                     src={(project.images ?? [])[currentImageIndex] || project.imageUrl}
-                    alt={`${project.title} screenshot ${currentImageIndex + 1}`}
+                    alt={`${displayTitle} screenshot ${currentImageIndex + 1}`}
                     className="absolute inset-0 w-full h-full object-contain p-2 md:p-4"
                     initial={{ opacity: 0, scale: 1.05 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -148,25 +157,25 @@ const ProjectDetail = () => {
             ) : (
               /* Fallback single image if no slider array provided */
               <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-black/50 border border-white/5 shadow-[0_0_50px_rgba(0,0,0,0.5)] flex items-center justify-center">
-                 <img src={project.imageUrl} alt={project.title} className="w-full h-full object-contain p-2 md:p-4" />
+                 <img src={project.imageUrl} alt={displayTitle} className="w-full h-full object-contain p-2 md:p-4" />
               </div>
             )}
 
             {/* Content Description */}
             <div className="prose prose-invert prose-lg max-w-none">
-              {project.content ? (
+              {displayContent ? (
                 <>
                   <p className="text-gray-300 text-xl leading-relaxed mb-8 italic">
-                    {project.description}
+                    {displayDescription}
                   </p>
                   <div
                     className="text-gray-300 leading-relaxed [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-purple-400 [&_h2]:mt-8 [&_h2]:mb-4 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-white [&_h3]:mt-6 [&_h3]:mb-2 [&_p]:mb-4 [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-4 [&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:mb-4 [&_li]:mb-2 [&_strong]:font-bold [&_strong]:text-white [&_em]:italic [&_u]:underline"
-                    dangerouslySetInnerHTML={{ __html: project.content }}
+                    dangerouslySetInnerHTML={{ __html: displayContent }}
                   />
                 </>
               ) : (
                 <p className="text-gray-300 text-xl leading-relaxed">
-                  {project.description}
+                  {displayDescription}
                 </p>
               )}
             </div>
@@ -177,11 +186,11 @@ const ProjectDetail = () => {
           <div className="flex flex-col gap-8">
              <div className="bg-white/5 border border-white/10 rounded-3xl p-8 sticky top-24 backdrop-blur-sm">
                
-               <h3 className="text-xl font-bold mb-6 text-white border-b border-white/10 pb-4">Proje Künyesi</h3>
+               <h3 className="text-xl font-bold mb-6 text-white border-b border-white/10 pb-4">{isEn ? 'Project Info' : 'Proje Künyesi'}</h3>
                
                {/* Tech Stack Chips */}
                <div className="mb-8">
-                  <span className="block text-sm text-gray-400 mb-3">Kullanılan Teknolojiler</span>
+                  <span className="block text-sm text-gray-400 mb-3">{isEn ? 'Technologies Used' : 'Kullanılan Teknolojiler'}</span>
                   <div className="flex flex-wrap gap-2">
                     {project.techStacks?.map((tech: string) => (
                       <div key={tech} className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10">
@@ -194,14 +203,14 @@ const ProjectDetail = () => {
                <ul className="space-y-5">
                  {project.date && (
                    <li>
-                     <span className="block text-sm text-gray-400 mb-1">Teslim Tarihi</span>
+                     <span className="block text-sm text-gray-400 mb-1">{isEn ? 'Delivery Date' : 'Teslim Tarihi'}</span>
                      <span className="font-semibold text-white text-lg">{project.date}</span>
                    </li>
                  )}
                  <li>
-                   <span className="block text-sm text-gray-400 mb-1">Proje Durumu</span>
+                   <span className="block text-sm text-gray-400 mb-1">{isEn ? 'Project Status' : 'Proje Durumu'}</span>
                    <span className="inline-block px-3 py-1 text-xs font-bold rounded-full mt-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                     Tamamlandı
+                     {isEn ? 'Completed' : 'Tamamlandı'}
                    </span>
                  </li>
                </ul>
@@ -213,7 +222,7 @@ const ProjectDetail = () => {
                    rel="noopener noreferrer"
                    className="mt-10 flex items-center justify-center gap-2 w-full py-4 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-bold transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]"
                  >
-                   <span>Canlı Projeyi Görüntüle</span>
+                   <span>{isEn ? 'View Live Project' : 'Canlı Projeyi Görüntüle'}</span>
                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                      <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
                      <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
@@ -232,8 +241,8 @@ const ProjectDetail = () => {
                to={`/project/${prevProject.id}`}
                className="group flex flex-col items-start w-full md:w-1/2 p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300 gap-2"
              >
-               <span className="text-gray-400 text-sm group-hover:text-purple-400 transition-colors uppercase tracking-widest">&#x2190; Önceki Proje</span>
-               <span className="text-xl md:text-2xl font-bold text-white group-hover:translate-x-2 transition-transform truncate w-full">{prevProject.title}</span>
+               <span className="text-gray-400 text-sm group-hover:text-purple-400 transition-colors uppercase tracking-widest">&#x2190; {isEn ? 'Previous Project' : 'Önceki Proje'}</span>
+               <span className="text-xl md:text-2xl font-bold text-white group-hover:translate-x-2 transition-transform truncate w-full">{isEn && prevProject.title_en ? prevProject.title_en : prevProject.title}</span>
              </Link>
            ) : (
              <div className="w-full md:w-1/2"></div> // Empty spacer
@@ -244,8 +253,8 @@ const ProjectDetail = () => {
                to={`/project/${nextProject.id}`}
                className="group flex flex-col items-end w-full md:w-1/2 p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300 gap-2 text-right"
              >
-               <span className="text-gray-400 text-sm group-hover:text-purple-400 transition-colors uppercase tracking-widest">Sonraki Proje &#x2192;</span>
-               <span className="text-xl md:text-2xl font-bold text-white group-hover:-translate-x-2 transition-transform truncate w-full">{nextProject.title}</span>
+               <span className="text-gray-400 text-sm group-hover:text-purple-400 transition-colors uppercase tracking-widest">{isEn ? 'Next Project' : 'Sonraki Proje'} &#x2192;</span>
+               <span className="text-xl md:text-2xl font-bold text-white group-hover:-translate-x-2 transition-transform truncate w-full">{isEn && nextProject.title_en ? nextProject.title_en : nextProject.title}</span>
              </Link>
            )}
         </div>
