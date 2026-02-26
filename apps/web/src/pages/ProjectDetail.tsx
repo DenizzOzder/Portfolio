@@ -109,7 +109,7 @@ const ProjectDetail = () => {
                     key={currentImageIndex}
                     src={(project.images ?? [])[currentImageIndex] || project.imageUrl}
                     alt={`${project.title} screenshot ${currentImageIndex + 1}`}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-contain p-2 md:p-4"
                     initial={{ opacity: 0, scale: 1.05 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
@@ -147,8 +147,8 @@ const ProjectDetail = () => {
               </div>
             ) : (
               /* Fallback single image if no slider array provided */
-              <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-black/50 border border-white/5 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-                 <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
+              <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-black/50 border border-white/5 shadow-[0_0_50px_rgba(0,0,0,0.5)] flex items-center justify-center">
+                 <img src={project.imageUrl} alt={project.title} className="w-full h-full object-contain p-2 md:p-4" />
               </div>
             )}
 

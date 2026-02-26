@@ -39,11 +39,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       {/* Main Layout containing content */}
       <div className="relative flex flex-col w-full h-full rounded-2xl overflow-hidden z-10">
         {/* Image Container with Hover Overlay - 75% height */}
-        <div className="relative w-full h-[75%] overflow-hidden bg-black/50 shrink-0">
+        <div className="relative w-full h-[75%] overflow-hidden bg-black/50 shrink-0 flex items-center justify-center">
           <img
             src={imageUrl}
             alt={title}
-            className={`w-full h-full object-cover transition-transform duration-700 ease-in-out ${isCompleted ? 'group-hover:scale-110' : ''}`}
+            className={`w-full h-full p-4 object-contain transition-transform duration-700 ease-in-out ${isCompleted ? 'group-hover:scale-110' : ''}`}
           />
           
           {/* Dark overlay that appears on hover to make description readable */}
