@@ -85,14 +85,15 @@ export const FeaturedProjects: React.FC = () => {
           </div>
         </div>
 
-        {/* CSS Grid for 4 columns on xl screens */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 min-h-[400px]">
+        {/* Flex layout for centering incomplete rows */}
+        <motion.div layout className="flex flex-wrap justify-center gap-6 md:gap-8 min-h-[400px]">
           <AnimatePresence mode="popLayout">
             {/* Render Projects inline, loading overlay handles the wait */}
             {displayedProjects.map((project) => (
                 <motion.div
                   key={project.id || project.title} // Ensure unique and stable key for animations
                   layout
+                  className="w-full sm:w-[calc(80%-1.5rem)] md:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] xl:w-[calc(25%-1.5rem)] shrink-0"
                   initial={{ opacity: 0, scale: 0.8, y: 30 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.8, y: -30 }}

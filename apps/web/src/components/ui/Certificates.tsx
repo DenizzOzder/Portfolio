@@ -146,13 +146,14 @@ export const Certificates: React.FC = () => {
       ) : (
         // Expanded Grid View
         <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-            <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+            <motion.div layout className="flex flex-wrap justify-center gap-6 md:gap-8">
             <AnimatePresence mode="popLayout">
               {isLoading ? (
-                // Skeletons in grid
+                // Skeletons in flex wrap
                 [1, 2, 3, 4].map((i) => (
                   <motion.div
                     key={`skeleton-${i}`}
+                    className="w-full sm:w-[calc(80%-1.5rem)] md:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] xl:w-[calc(25%-1.5rem)] shrink-0"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
@@ -162,11 +163,12 @@ export const Certificates: React.FC = () => {
                   </motion.div>
                 ))
               ) : (
-                // Actual Certificates in Grid
+                // Actual Certificates in Flex Wrap
                 certificates.map((cert) => (
                   <motion.div
                     key={cert.title}
                     layout
+                    className="w-full sm:w-[calc(80%-1.5rem)] md:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] xl:w-[calc(25%-1.5rem)] shrink-0"
                     initial={{ opacity: 0, scale: 0.8, y: 30 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.8, y: -30 }}
