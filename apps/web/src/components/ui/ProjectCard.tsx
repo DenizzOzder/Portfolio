@@ -68,8 +68,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             </span>
           )}
 
-          {/* Tech Stack SVGs Row - Centered */}
-          <div className="flex flex-wrap justify-center gap-2 mt-1.5">
+          {/* Tech Stack SVGs Row - Centered with Scroll */}
+          <div className="flex flex-wrap justify-center gap-2 mt-1.5 overflow-y-auto max-h-[60px] w-full scrollbar-thin scrollbar-thumb-purple-500/30 scrollbar-track-transparent pr-1">
           {techStacks.map((tech) => (
              <TechBadge key={tech} tech={tech} />
           ))}
