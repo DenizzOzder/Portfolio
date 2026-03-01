@@ -1,32 +1,9 @@
 import React from 'react';
 import type { TechBadgeProps } from '@/types/ui';
 
-// Maps common tech stack names to their DevIcon class or URL path
-const TECH_ICON_MAP: Record<string, string> = {
-  'HTML/CSS': 'html5/html5-original.svg',
-  'HTML': 'html5/html5-original.svg',
-  'CSS': 'css3/css3-original.svg',
-  'JavaScript': 'javascript/javascript-original.svg',
-  'JS': 'javascript/javascript-original.svg',
-  'TypeScript': 'typescript/typescript-original.svg',
-  'ReactJS': 'react/react-original.svg',
-  'React': 'react/react-original.svg',
-  'NodeJS': 'nodejs/nodejs-original.svg',
-  'Node.js': 'nodejs/nodejs-original.svg',
-  'MongoDB': 'mongodb/mongodb-original.svg',
-  'Git': 'git/git-original.svg',
-  'GitHub': 'github/github-original.svg',
-  'C++': 'cplusplus/cplusplus-original.svg',
-  'C#': 'csharp/csharp-original.svg',
-  'PHP': 'php/php-original.svg',
-  'SQL': 'mysql/mysql-original.svg', // generic fallback mapping
-  'MySQL': 'mysql/mysql-original.svg',
-  'Java': 'java/java-original.svg'
-};
-
-
+import { resolveIconName } from '@/utils/icons';
 export const TechBadge: React.FC<TechBadgeProps> = ({ tech }) => {
-  const iconPath = TECH_ICON_MAP[tech];
+  const iconPath = resolveIconName(tech);
 
   // If we have an exact mapped icon, render a small icon + text badge
   if (iconPath) {

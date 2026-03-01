@@ -110,6 +110,22 @@ const AdminAbout: React.FC = () => {
          {isEditing ? (
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
                <h3 className="text-xl font-bold text-white mb-6">{current.id ? 'Bölümü Düzenle' : 'Yeni Bölüm'}</h3>
+               
+               {/* Information Banner for Image Standards */}
+               <div className="mb-6 p-4 rounded-xl bg-blue-500/10 border border-blue-500/30 flex gap-3 text-blue-200">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div>
+                     <p className="font-bold text-blue-300 mb-1">Görsel Standartları (Önemli)</p>
+                     <p className="text-sm leading-relaxed">
+                        Hakkımda sayfasındaki görsellerin kutulardan <strong className="text-white">taşmaması ve kesilmemesi</strong> için lütfen 
+                        <strong className="text-white"> 4:3 oranında</strong> (örneğin: 800x600px veya 1200x900px) görseller kullanmaya özen gösterin.
+                        Ayrıca mobil görünüm için görselin kilit noktasının merkeze yakın olduğundan emin olun.
+                     </p>
+                  </div>
+               </div>
+
                <form onSubmit={handleSave} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                      <div>
@@ -157,7 +173,9 @@ const AdminAbout: React.FC = () => {
                   </div>
 
                   <div>
-                     <label className="block text-sm font-bold text-gray-300 mb-2">Görsel</label>
+                     <label className="block text-sm font-bold text-gray-300 mb-2">
+                        Görsel <span className="text-xs font-normal text-blue-400 ml-2">(Önerilen: 4:3 oran, min 800x600px)</span>
+                     </label>
                      <div className="flex items-center gap-4">
                         {current.imageUrl && !imageFile && (
                            <img src={current.imageUrl} alt="Current" className="w-20 h-20 object-cover rounded-lg" />
