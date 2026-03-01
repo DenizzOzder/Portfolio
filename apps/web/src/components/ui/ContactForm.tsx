@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { z } from 'zod';
 import { useTranslation } from 'react-i18next';
-import { contactSchema, type ContactFormData } from '../../utils/contactValidation';
+import { contactSchema, type ContactFormData } from '@/utils/contactValidation';
 import { toast } from 'react-hot-toast';
 
 export const ContactForm = () => {

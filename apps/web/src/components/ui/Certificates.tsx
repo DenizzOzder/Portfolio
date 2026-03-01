@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { ProjectCard } from './ProjectCard';
-import { getCertificates } from '../../services/certificateService';
-import type { ProjectCardProps } from '../../types';
+import { getCertificates } from '@/services/certificateService';
+import type { ProjectCardProps } from '@/types';
 
 export const Certificates: React.FC = () => {
   const { t } = useTranslation();

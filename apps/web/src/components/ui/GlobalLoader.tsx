@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import type { RootState } from '../../store/store';
+import type { RootState } from '@/store/store';
 
 export const GlobalLoader: React.FC<{ minimumLoadTime?: number }> = ({ minimumLoadTime = 1500 }) => {
   const isLoading = useSelector((state: RootState) => state.ui.isLoading);

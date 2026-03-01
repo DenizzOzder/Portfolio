@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import type { ProjectCardProps } from '../../types';
+import type { ProjectCardProps } from '@/types';
 import { TechBadge } from './TechBadge';
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({

@@ -2,8 +2,8 @@ import { BlackHoleBackground } from '../effects/BlackHoleBackground';
 import { useTranslation } from 'react-i18next';
 
 import { useState, useEffect } from 'react';
-import { getTechStacks } from '../../services/techStackService';
-import type { TechStackItem } from '../../types/techstack';
+import { getTechStacks } from '@/services/techStackService';
+import type { TechStackItem } from '@/types/techstack';
 
 export const TechStack = () => {
   const { t } = useTranslation();

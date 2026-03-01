@@ -2,8 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProjectCard } from './ProjectCard';
-import { useProjects } from '../../hooks/useProjects';
-import { useGlobalLoaderSync } from '../../hooks/useGlobalLoaderSync';
+import { useProjects } from '@/hooks/useProjects';
+import { useGlobalLoaderSync } from '@/hooks/useGlobalLoaderSync';
 
 import type { FilterType } from '@/types/ui';
 

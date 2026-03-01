@@ -2,7 +2,7 @@ import { useEducationData } from '@/hooks/useEducation';
 import { useGlobalLoaderSync } from '@/hooks/useGlobalLoaderSync';
 import { useTranslation } from 'react-i18next';
 import { Certificates } from './Certificates';
-import Hyperspeed, { hyperspeedPresets } from '../effects/Hyperspeed';
+import Hyperspeed, { hyperspeedPresets } from '@/components/effects/Hyperspeed';
 
 export const Education = () => {
   const { t, i18n } = useTranslation();

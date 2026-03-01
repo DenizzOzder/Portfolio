@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import LightPillar from '../effects/LightPillar';
-import avatarImg from '../../assets/avatar.png';
+import LightPillar from '@/components/effects/LightPillar';
+import avatarImg from '@/assets/avatar.png';
 const Hero = () => {
   const { t } = useTranslation();
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
