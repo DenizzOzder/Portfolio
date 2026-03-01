@@ -55,8 +55,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           </div>
         </div>
 
-        {/* Content Container - 25% height */}
-        <div className="flex flex-col items-center justify-center h-[25%] px-4 py-2 z-20 bg-gradient-to-t from-black/80 to-black/40">
+        {/* Content Container - Flexible height */}
+        <div className="flex flex-col items-center justify-start flex-1 px-4 py-3 z-20 bg-gradient-to-t from-black/80 to-black/40">
           <h3 className="text-base md:text-lg font-bold text-white text-center truncate w-full">
             {displayTitle}
           </h3>
@@ -68,8 +68,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             </span>
           )}
 
-          {/* Tech Stack SVGs Row - Centered with Scroll */}
-          <div className="flex flex-wrap justify-center gap-2 mt-1.5 overflow-y-auto max-h-[60px] w-full scrollbar-thin scrollbar-thumb-purple-500/30 scrollbar-track-transparent pr-1">
+          {/* Tech Stack SVGs Row - Centered with Scroll (Hidden Scrollbar) */}
+          <div className="flex flex-wrap justify-center gap-2 mt-1.5 overflow-y-auto max-h-[80px] w-full scrollbar-hide shrink-0 pb-1">
           {techStacks.map((tech) => (
              <TechBadge key={tech} tech={tech} />
           ))}
