@@ -38,8 +38,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
       {/* Main Layout containing content */}
       <div className="relative flex flex-col w-full h-full rounded-2xl overflow-hidden z-10">
-        {/* Image Container with Hover Overlay - 75% height */}
-        <div className="relative w-full h-[75%] overflow-hidden bg-black/50 shrink-0 flex items-center justify-center">
+        {/* Image Container with Hover Overlay - 60% height */}
+        <div className="relative w-full h-[60%] overflow-hidden bg-black/50 shrink-0 flex items-center justify-center">
           <img
             src={imageUrl}
             alt={title}
@@ -55,8 +55,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           </div>
         </div>
 
-        {/* Content Container - Flexible height */}
-        <div className="flex flex-col items-center justify-start flex-1 px-4 py-3 z-20 bg-gradient-to-t from-black/80 to-black/40">
+        {/* Content Container - 40% height */}
+        <div className="flex flex-col items-center justify-center h-[40%] px-4 py-3 z-20 bg-gradient-to-t from-black/80 to-black/40">
           <h3 className="text-base md:text-lg font-bold text-white text-center truncate w-full">
             {displayTitle}
           </h3>
@@ -69,8 +69,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           )}
 
           {/* Tech Stack SVGs Row - Centered with Scroll (Hidden Scrollbar) */}
-          {/* Max height calculated to fit ~2 lines of badges before scrolling (approx 68px) */}
-          <div className="flex flex-wrap justify-center gap-2 mt-2 overflow-y-auto max-h-[68px] w-full scrollbar-hide shrink-0 pb-1">
+          {/* Max height calculated to fit ~2 lines of badges before scrolling (approx 72px) */}
+          <div className="flex flex-wrap justify-center gap-2 mt-2 pt-1 overflow-y-auto max-h-[72px] w-full scrollbar-hide shrink-0 pb-1">
           {techStacks.map((tech) => (
              <TechBadge key={tech} tech={tech} />
           ))}
@@ -116,7 +116,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
   const cardClasses = `
     group relative flex flex-col 
-    w-full h-[420px] md:h-[440px]
+    w-full h-[460px] md:h-[480px]
     transition-all duration-500 ease-out text-left
     ${isCompleted ? 'hover:-translate-y-2 cursor-pointer' : 'opacity-80 cursor-not-allowed grayscale-[0.2]'}
   `;
