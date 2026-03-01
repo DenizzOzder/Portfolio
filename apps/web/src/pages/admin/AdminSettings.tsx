@@ -7,7 +7,8 @@ import toast from 'react-hot-toast';
 
 const DEFAULT_SETTINGS: AdminSettings = {
    contactEmail: '',
-   resumePdfUrl: '',
+   resumePdfUrlTr: '',
+   resumePdfUrlEn: '',
    socialLinks: {
       github: '',
       linkedin: '',
@@ -18,7 +19,8 @@ const AdminSettingsPage: React.FC = () => {
    const [settings, setSettings] = useState<AdminSettings>(DEFAULT_SETTINGS);
    const [isLoading, setIsLoading] = useState(true);
    const [isSaving, setIsSaving] = useState(false);
-   const [resumeFile, setResumeFile] = useState<File | null>(null);
+   const [resumeFileTr, setResumeFileTr] = useState<File | null>(null);
+   const [resumeFileEn, setResumeFileEn] = useState<File | null>(null);
 
    // For adding new social link keys
    const [newSocialKey, setNewSocialKey] = useState('');
@@ -47,23 +49,33 @@ const AdminSettingsPage: React.FC = () => {
       const loadingToast = toast.loading('Ayarlar kaydediliyor...');
 
       try {
-         let resumeUrl = settings.resumePdfUrl;
+         let resumeUrlTr = settings.resumePdfUrlTr || settings.resumePdfUrl || '';
+         let resumeUrlEn = settings.resumePdfUrlEn || settings.resumePdfUrl || '';
 
-         // Upload new CV file if selected
-         if (resumeFile) {
-            const storageRef = ref(storage, `settings/resume_${Date.now()}_${resumeFile.name}`);
-            const snapshot = await uploadBytes(storageRef, resumeFile);
-            resumeUrl = await getDownloadURL(snapshot.ref);
+         // Upload new TR CV file if selected
+         if (resumeFileTr) {
+            const storageRef = ref(storage, `settings/resume_tr_${Date.now()}_${resumeFileTr.name}`);
+            const snapshot = await uploadBytes(storageRef, resumeFileTr);
+            resumeUrlTr = await getDownloadURL(snapshot.ref);
+         }
+
+         // Upload new EN CV file if selected
+         if (resumeFileEn) {
+            const storageRef = ref(storage, `settings/resume_en_${Date.now()}_${resumeFileEn.name}`);
+            const snapshot = await uploadBytes(storageRef, resumeFileEn);
+            resumeUrlEn = await getDownloadURL(snapshot.ref);
          }
 
          const data: AdminSettings = {
             ...settings,
-            resumePdfUrl: resumeUrl,
+            resumePdfUrlTr: resumeUrlTr,
+            resumePdfUrlEn: resumeUrlEn,
          };
 
          await setDoc(doc(db, 'settings', 'profile'), data);
          toast.success('Ayarlar başarıyla kaydedildi!', { id: loadingToast });
-         setResumeFile(null);
+         setResumeFileTr(null);
+         setResumeFileEn(null);
          setSettings(data);
       } catch (error) {
          console.error(error);
@@ -117,24 +129,51 @@ const AdminSettingsPage: React.FC = () => {
                </div>
             </div>
 
-            {/* Resume / CV */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-               <h3 className="text-lg font-bold text-white mb-4">Özgeçmiş (CV)</h3>
-               {settings.resumePdfUrl && (
-                  <div className="flex items-center gap-3 mb-4 text-sm">
-                     <span className="text-gray-400">Mevcut CV:</span>
-                     <a href={settings.resumePdfUrl} target="_blank" rel="noopener norferrer" className="text-purple-400 hover:text-purple-300 underline truncate max-w-xs">
-                        {settings.resumePdfUrl.split('/').pop()?.split('?')[0] || 'CV Dosyası'}
-                     </a>
-                  </div>
-               )}
-               <input
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  onChange={e => { if (e.target.files?.[0]) setResumeFile(e.target.files[0]); }}
-                  className="text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-purple-600/20 file:text-purple-400 hover:file:bg-purple-600/30"
-               />
-               {resumeFile && <p className="text-xs text-gray-500 mt-2">Yeni dosya seçildi: {resumeFile.name}</p>}
+            {/* Resume / CV (TR & EN) */}
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-6">
+               <h3 className="text-lg font-bold text-white">Özgeçmiş (CV) Dosyaları</h3>
+
+               {/* TR CV */}
+               <div>
+                  <h4 className="text-sm font-bold text-gray-300 mb-2">Türkçe CV</h4>
+                  {(settings.resumePdfUrlTr || settings.resumePdfUrl) && (
+                     <div className="flex items-center gap-3 mb-4 text-sm">
+                        <span className="text-gray-400">Mevcut TR CV:</span>
+                        <a href={settings.resumePdfUrlTr || settings.resumePdfUrl} target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 underline truncate max-w-xs">
+                           {(settings.resumePdfUrlTr || settings.resumePdfUrl)?.split('/').pop()?.split('?')[0] || 'TR CV Dosyası'}
+                        </a>
+                     </div>
+                  )}
+                  <input
+                     type="file"
+                     accept=".pdf,.doc,.docx"
+                     onChange={e => { if (e.target.files?.[0]) setResumeFileTr(e.target.files[0]); }}
+                     className="text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-purple-600/20 file:text-purple-400 hover:file:bg-purple-600/30 w-full"
+                  />
+                  {resumeFileTr && <p className="text-xs text-gray-500 mt-2">Yeni dosya seçildi: {resumeFileTr.name}</p>}
+               </div>
+
+               <div className="w-full h-px bg-white/10"></div>
+
+               {/* EN CV */}
+               <div>
+                  <h4 className="text-sm font-bold text-gray-300 mb-2">İngilizce CV</h4>
+                  {(settings.resumePdfUrlEn || settings.resumePdfUrl) && (
+                     <div className="flex items-center gap-3 mb-4 text-sm">
+                        <span className="text-gray-400">Mevcut EN CV:</span>
+                        <a href={settings.resumePdfUrlEn || settings.resumePdfUrl} target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 underline truncate max-w-xs">
+                           {(settings.resumePdfUrlEn || settings.resumePdfUrl)?.split('/').pop()?.split('?')[0] || 'EN CV Dosyası'}
+                        </a>
+                     </div>
+                  )}
+                  <input
+                     type="file"
+                     accept=".pdf,.doc,.docx"
+                     onChange={e => { if (e.target.files?.[0]) setResumeFileEn(e.target.files[0]); }}
+                     className="text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-purple-600/20 file:text-purple-400 hover:file:bg-purple-600/30 w-full"
+                  />
+                  {resumeFileEn && <p className="text-xs text-gray-500 mt-2">Yeni dosya seçildi: {resumeFileEn.name}</p>}
+               </div>
             </div>
 
             {/* Social Links */}

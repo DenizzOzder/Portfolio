@@ -1,4 +1,34 @@
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import type { AdminSettings } from '@/types/admin';
+
 export const FloatingActionGroup = () => {
+  const { i18n } = useTranslation();
+  const [cvUrls, setCvUrls] = useState<{tr: string, en: string} | null>(null);
+
+  useEffect(() => {
+    const fetchCvUrls = async () => {
+      try {
+        const docRef = doc(db, 'settings', 'profile');
+        const snapshot = await getDoc(docRef);
+        if (snapshot.exists()) {
+          const data = snapshot.data() as AdminSettings;
+          setCvUrls({
+            tr: data.resumePdfUrlTr || data.resumePdfUrl || '',
+            en: data.resumePdfUrlEn || data.resumePdfUrl || ''
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching CV URLs:", error);
+      }
+    };
+    fetchCvUrls();
+  }, []);
+
+  const activeCvUrl = i18n.language?.startsWith('en') ? cvUrls?.en : cvUrls?.tr;
+
   return (
     <>
       {/* Left Side: Social Media Sidebar */}
@@ -32,18 +62,17 @@ export const FloatingActionGroup = () => {
 
       {/* Right Side: Resume Button */}
       <div className="fixed right-4 bottom-0 z-50 flex flex-col items-center gap-6 hidden md:flex">
-        <a 
-          href="#resume" // TODO: Point to backend PDF endpoint later
-          onClick={(e) => {
-             e.preventDefault();
-             alert("CV indirme özelliği yakında eklenecektir.");
-          }}
-          className="group flex flex-col items-center gap-4 text-gray-400 hover:text-purple-400 transition-all duration-300"
-          style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
-        >
-          <span className="tracking-widest text-sm font-medium group-hover:-translate-y-1 transition-transform">
-            ÖZGEÇMİŞ.PDF
-          </span>
+        {activeCvUrl ? (
+          <a 
+            href={activeCvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col items-center gap-4 text-gray-400 hover:text-purple-400 transition-all duration-300"
+            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+          >
+            <span className="tracking-widest text-sm font-medium group-hover:-translate-y-1 transition-transform">
+              {i18n.language?.startsWith('en') ? 'RESUME.PDF' : 'ÖZGEÇMİŞ.PDF'}
+            </span>
           <div className="p-2 border border-gray-600 rounded-full group-hover:border-purple-400 group-hover:bg-purple-900/30 group-hover:-translate-y-1 transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 rotate-90">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -51,7 +80,25 @@ export const FloatingActionGroup = () => {
                 <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
           </div>
-        </a>
+          </a>
+        ) : (
+          <div 
+            className="group flex flex-col items-center gap-4 text-gray-500 opacity-50 cursor-not-allowed transition-all duration-300"
+            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+          >
+            <span className="tracking-widest text-sm font-medium">
+              {i18n.language?.startsWith('en') ? 'RESUME.PDF' : 'ÖZGEÇMİŞ.PDF'}
+            </span>
+            <div className="p-2 border border-gray-600 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 rotate-90">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </div>
+          </div>
+        )}
+        
         
         {/* Vertical Line */}
         <div className="w-[1px] h-24 bg-gradient-to-b from-gray-500 to-transparent mt-2"></div>

@@ -1,6 +1,8 @@
 export interface AdminSettings {
   contactEmail: string;
-  resumePdfUrl: string;
+  resumePdfUrl?: string; // Legacy
+  resumePdfUrlTr: string;
+  resumePdfUrlEn: string;
   socialLinks: {
     github: string;
     linkedin: string;

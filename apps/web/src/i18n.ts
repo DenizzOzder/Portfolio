@@ -22,6 +22,10 @@ i18n
     resources,
     fallbackLng: 'tr',
     supportedLngs: ['en', 'tr'],
+    detection: {
+      order: ['navigator', 'localStorage', 'cookie', 'htmlTag', 'path', 'subdomain'],
+      caches: ['localStorage', 'cookie']
+    },
     debug: false,
     interpolation: {
       escapeValue: false,
