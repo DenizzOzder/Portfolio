@@ -14,7 +14,7 @@ export const AboutMe = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] bg-pink-600/10 blur-[100px] rounded-full pointer-events-none -z-10"></div>
 
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+          <span className="leading-[1.4] bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
             {t('about.title')}
           </span>
         </h2>

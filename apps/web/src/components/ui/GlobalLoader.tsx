@@ -40,7 +40,7 @@ export const GlobalLoader: React.FC<{ minimumLoadTime?: number }> = ({ minimumLo
             
             {/* Center Logo/Initial */}
             <div className="absolute inset-0 flex flex-col items-center justify-center animate-pulse">
-               <span className="text-4xl font-black bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 tracking-tighter drop-shadow-lg">
+               <span className="text-4xl font-black leading-[1.4] bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 tracking-tighter drop-shadow-lg">
                   D.Ö.
                </span>
             </div>

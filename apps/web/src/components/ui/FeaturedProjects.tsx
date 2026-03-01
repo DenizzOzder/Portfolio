@@ -43,7 +43,7 @@ export const FeaturedProjects: React.FC = () => {
     >
       <div className="max-w-[1400px] mx-auto">
         <div className="text-center mb-10">
-          <h2 className="text-4xl md:text-6xl font-black mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400 drop-shadow-2xl">
+          <h2 className="text-4xl md:text-6xl font-black mb-4 leading-[1.4] bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400 drop-shadow-2xl">
             {t('projects.title')}
           </h2>
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-8">

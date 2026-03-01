@@ -40,7 +40,7 @@ export const AdminLayout = () => {
       {/* Sidebar Navigation */}
       <aside className="w-64 flex-shrink-0 bg-white/5 border-r border-white/10 flex flex-col">
         <div className="p-6">
-          <Link to="/" className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+          <Link to="/" className="text-2xl font-black leading-[1.4] bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
              Admin Panel
           </Link>
           <p className="text-xs text-gray-500 mt-2 font-medium">Portfolio Manager v1.0</p>

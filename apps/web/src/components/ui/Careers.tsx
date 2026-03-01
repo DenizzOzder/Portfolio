@@ -30,10 +30,10 @@ export const Careers = () => {
       <div className="container relative mx-auto px-4 lg:px-8 z-10 flex flex-col items-center max-w-7xl">
         <div className="text-center mb-8 md:mb-16">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-4">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+              <span className="leading-[1.4] bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                   {t('career.title')}
               </span>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-400 to-purple-400 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+              <span className="leading-[1.4] bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-400 to-purple-400 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                   {t('career.subtitle')}
               </span>
           </h2>

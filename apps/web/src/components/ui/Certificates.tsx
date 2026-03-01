@@ -80,7 +80,7 @@ export const Certificates: React.FC = () => {
   return (
     <div className="w-full pb-16 mt-20 md:mt-32 relative z-10">
       <div className="text-center mb-12">
-        <h3 className="text-3xl md:text-5xl font-black mb-4 pb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500 drop-shadow-lg leading-tight">
+        <h3 className="text-3xl md:text-5xl font-black mb-4 pb-2 leading-[1.4] bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500 drop-shadow-lg leading-tight">
           {t('certificates.title')}
         </h3>
         <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto px-4">

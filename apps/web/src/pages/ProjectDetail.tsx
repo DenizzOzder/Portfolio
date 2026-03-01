@@ -94,7 +94,7 @@ import { useTranslation } from 'react-i18next';const ProjectDetail = () => {
 
         {/* Header Section */}
         <div className="flex flex-col mb-12">
-           <h1 className="text-5xl md:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-4 tracking-tight drop-shadow-lg">
+           <h1 className="text-5xl md:text-7xl font-black leading-[1.4] bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-4 tracking-tight drop-shadow-lg">
              {displayTitle}
            </h1>
            {displayRole && (

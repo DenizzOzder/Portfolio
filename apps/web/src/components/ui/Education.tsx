@@ -25,10 +25,10 @@ export const Education = () => {
         
         <div className="text-center mb-16 md:mb-24">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-4">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+              <span className="leading-[1.4] bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                   {t('education.title')}
               </span>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-purple-400 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+              <span className="leading-[1.4] bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-purple-400 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                   {t('education.subtitle')}
               </span>
           </h2>

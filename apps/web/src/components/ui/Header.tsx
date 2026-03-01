@@ -44,7 +44,7 @@ const Header = () => {
         <a 
           href="/" 
           onClick={handleLogoClick} 
-          className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 hover:scale-105 transition-transform"
+          className="text-xl md:text-2xl font-bold leading-[1.4] bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 hover:scale-105 transition-transform"
         >
             Deniz Can Özder
         </a>

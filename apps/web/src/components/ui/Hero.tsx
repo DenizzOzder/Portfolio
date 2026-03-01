@@ -49,11 +49,11 @@ const Hero = () => {
             </div>
 
         <h1 className="text-6xl md:text-8xl font-black tracking-tight mb-6 drop-shadow-2xl">
-            <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-200 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+            <span className="leading-[1.4] bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-200 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                 {t('hero.title')}
             </span>
             <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-400 to-purple-400 animate-gradient drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+            <span className="leading-[1.4] bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-400 to-purple-400 animate-gradient drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                 {t('hero.subtitle')}
             </span>
         </h1>
