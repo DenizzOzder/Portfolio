@@ -69,7 +69,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           )}
 
           {/* Tech Stack SVGs Row - Centered with Scroll (Hidden Scrollbar) */}
-          <div className="flex flex-wrap justify-center gap-2 mt-1.5 overflow-y-auto max-h-[80px] w-full scrollbar-hide shrink-0 pb-1">
+          {/* Max height calculated to fit ~2 lines of badges before scrolling (approx 68px) */}
+          <div className="flex flex-wrap justify-center gap-2 mt-2 overflow-y-auto max-h-[68px] w-full scrollbar-hide shrink-0 pb-1">
           {techStacks.map((tech) => (
              <TechBadge key={tech} tech={tech} />
           ))}
@@ -115,7 +116,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
   const cardClasses = `
     group relative flex flex-col 
-    w-full h-[400px]
+    w-full h-[420px] md:h-[440px]
     transition-all duration-500 ease-out text-left
     ${isCompleted ? 'hover:-translate-y-2 cursor-pointer' : 'opacity-80 cursor-not-allowed grayscale-[0.2]'}
   `;

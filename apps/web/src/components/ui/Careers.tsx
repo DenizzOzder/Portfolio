@@ -90,7 +90,8 @@ export const Careers = () => {
 
                       <div className="flex flex-col items-center gap-4 mt-8">
                         {/* Tech Stack Icons & Badges with Scroll (Hidden Scrollbar) */}
-                        <div className="flex flex-wrap gap-4 justify-center overflow-y-auto max-h-[140px] w-full scrollbar-hide shrink-0 pb-1">
+                        {/* Max height calculated to fit ~2 lines of badges before scrolling (approx 76px for larger gap) */}
+                        <div className="flex flex-wrap gap-3 justify-center overflow-y-auto max-h-[76px] w-full scrollbar-hide shrink-0 pb-1 px-1">
                           {(exp.techStacks || []).map((t: string, idx: number) => (
                             <TechBadge key={idx} tech={t} />
                           ))}
